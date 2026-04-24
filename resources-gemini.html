@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anthropic &amp; Claude Resources | AI Training Hub</title>
+  <title>Google Gemini Resources | AI Training Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +22,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 12px rgba(79,142,247,0.07);
+      box-shadow: 0 2px 12px rgba(66,133,244,0.07);
     }
     .nav-inner {
       max-width: 860px;
@@ -37,7 +37,7 @@
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 0.95rem;
-      color: #4f8ef7;
+      color: #4285f4;
       text-decoration: none;
     }
     .nav-back {
@@ -50,10 +50,10 @@
       gap: 5px;
       transition: color 0.15s;
     }
-    .nav-back:hover { color: #4f8ef7; }
+    .nav-back:hover { color: #4285f4; }
 
     .page-hero {
-      background: linear-gradient(135deg, #6b21a8 0%, #a259f7 60%, #f7599a 100%);
+      background: linear-gradient(135deg, #4285f4 0%, #9b72cb 50%, #d96570 100%);
       padding: 3rem 2rem 3.5rem;
       position: relative;
       overflow: hidden;
@@ -138,18 +138,18 @@
     .link-body { flex: 1; min-width: 0; }
     .link-body h3 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
     .link-body p { font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5; }
-    .link-arrow { font-size: 18px; color: #a259f7; align-self: center; flex-shrink: 0; }
+    .link-arrow { font-size: 18px; color: #4285f4; align-self: center; flex-shrink: 0; }
 
     .tip {
-      background: #faf5ff;
-      border-left: 4px solid #a259f7;
+      background: #eff6ff;
+      border-left: 4px solid #4285f4;
       border-radius: 12px;
       padding: 1rem 1.1rem;
       margin: 1rem 0;
       display: flex;
       gap: 10px;
       font-size: 14px;
-      color: #3b0764;
+      color: #1e3a8a;
       line-height: 1.6;
     }
 
@@ -191,14 +191,14 @@
       gap: 8px;
       font-size: 13px;
       font-weight: 700;
-      color: #a259f7;
+      color: #4285f4;
       text-decoration: none;
       padding: 6px 0;
       border-bottom: 1px solid #f0f0f0;
       transition: color 0.15s;
     }
     .quick-link:last-child { border-bottom: none; }
-    .quick-link:hover { color: #6b21a8; }
+    .quick-link:hover { color: #1a3c8a; }
 
     footer {
       text-align: center;
@@ -208,7 +208,7 @@
       border-top: 1px solid #e8eaf0;
       background: #fff;
     }
-    footer a { color: #4f8ef7; text-decoration: none; }
+    footer a { color: #4285f4; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
     @media (max-width: 680px) {
@@ -230,95 +230,95 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <div class="page-badge">🔗 Training Resource</div>
-      <h1>Anthropic &amp; Claude Resources</h1>
-      <p>Official learning resources for prompt engineering, the Claude API, Claude Code, and getting the most out of AI in your day-to-day work.</p>
+      <h1>Google Gemini Resources</h1>
+      <p>Official learning resources for Gemini — Google's multimodal AI — covering the Gemini app, AI Studio, the Gemini API, and building with Vertex AI.</p>
     </div>
   </section>
 
   <div class="page-layout">
     <article class="page-content">
 
-      <p>Anthropic is the company behind Claude. Their official docs, guides and research are some of the best resources available for understanding how to work effectively with large language models — whether you're writing prompts or building applications.</p>
+      <p>Gemini is Google's flagship family of multimodal AI models. It's available as a consumer chat assistant, inside Google Workspace (Docs, Gmail, Sheets), and as a powerful API for developers via AI Studio and Vertex AI.</p>
 
       <div class="tip">
         <span>💡</span>
-        <span><strong>Where to start:</strong> If you're new to Claude, begin with the Prompt Engineering guide. If you want to use Claude in your own tools or workflows, head straight to the API documentation.</span>
+        <span><strong>Where to start:</strong> Try the Gemini app first to see what the models can do. Developers should head to AI Studio for fast prototyping before moving to Vertex AI for production.</span>
       </div>
 
-      <h2>Getting Started with Claude</h2>
+      <h2>Getting Started with Gemini</h2>
 
-      <a href="https://claude.ai" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ede9fe;">✨</div>
+      <a href="https://gemini.google.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ddeeff;">✨</div>
         <div class="link-body">
           <span class="tag tag-free">Free tier</span>
-          <h3>Claude.ai — Chat Interface</h3>
-          <p>The main web interface for chatting with Claude. Free tier available. Great starting point to explore what Claude can do before diving into APIs.</p>
+          <h3>Gemini App</h3>
+          <p>The main web and mobile app for chatting with Gemini. Free tier available. Includes image generation, deep research, and multimodal input.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <a href="https://docs.anthropic.com/en/docs/intro-to-claude" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ede9fe;">📖</div>
+      <a href="https://aistudio.google.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ddeeff;">🛝</div>
         <div class="link-body">
-          <span class="tag tag-prompts">Docs</span>
-          <h3>Introduction to Claude</h3>
-          <p>Official Anthropic documentation — covers Claude's capabilities, model overview, and how to start building or prompting effectively.</p>
+          <span class="tag tag-free">Free</span>
+          <h3>Google AI Studio</h3>
+          <p>Free web-based playground for the Gemini API — prototype prompts, tune parameters, and get starter code. Free API key available here too.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <h2>Prompt Engineering</h2>
+      <h2>Learning &amp; Prompt Guides</h2>
 
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#faf5ff;">🧠</div>
+      <a href="https://ai.google.dev/gemini-api/docs/prompting-strategies" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ede9fe;">🧠</div>
         <div class="link-body">
           <span class="tag tag-prompts">Prompt Eng.</span>
-          <h3>Prompt Engineering Overview</h3>
-          <p>Anthropic's official guide to writing effective prompts — covers structure, roles, chain-of-thought, and getting consistent results.</p>
+          <h3>Prompting Strategies</h3>
+          <p>Google's official guidance for writing effective Gemini prompts — including role assignment, few-shot examples, chain-of-thought and multimodal prompting.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-library" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#faf5ff;">📋</div>
+      <a href="https://www.cloudskillsboost.google/paths/183" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ede9fe;">🎓</div>
         <div class="link-body">
-          <span class="tag tag-prompts">Examples</span>
-          <h3>Prompt Library</h3>
-          <p>A curated library of ready-to-use prompts covering coding, writing, analysis, and more — great for inspiration and learning patterns.</p>
+          <span class="tag tag-free">Free courses</span>
+          <h3>Google Cloud Skills Boost — Gen AI Path</h3>
+          <p>Free hands-on learning path covering generative AI fundamentals, Gemini, prompt design, and responsible AI practice.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
       <h2>Developer &amp; API Resources</h2>
 
-      <a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener" class="link-card">
+      <a href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener" class="link-card">
         <div class="link-icon" style="background:#ddeeff;">⚙️</div>
         <div class="link-body">
           <span class="tag tag-api">API</span>
-          <h3>Claude API — Getting Started</h3>
-          <p>Everything you need to integrate Claude into your own applications, scripts, or automations. Includes authentication, request formats and SDKs.</p>
+          <h3>Gemini API Documentation</h3>
+          <p>Complete developer docs — authentication, text and vision models, function calling, long context, code execution and streaming responses.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ddeeff;">💻</div>
+      <a href="https://github.com/google-gemini/cookbook" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ddeeff;">📖</div>
         <div class="link-body">
-          <span class="tag tag-new">Claude Code</span>
-          <h3>Claude Code Documentation</h3>
-          <p>Official docs for Claude Code — the agentic coding CLI. Covers installation, usage, hooks, slash commands and MCP server setup.</p>
+          <span class="tag tag-api">Cookbook</span>
+          <h3>Gemini API Cookbook</h3>
+          <p>Official GitHub repo of runnable notebooks demonstrating real tasks — vision, long documents, agents, embeddings and integrations.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <h2>Research &amp; Safety</h2>
+      <h2>Enterprise &amp; Vertex AI</h2>
 
-      <a href="https://www.anthropic.com/research" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ffe0ec;">🔬</div>
+      <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/learn/overview" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ffe0ec;">☁️</div>
         <div class="link-body">
-          <span class="tag tag-new">Research</span>
-          <h3>Anthropic Research Papers</h3>
-          <p>Published papers on AI safety, interpretability, and model behaviour. Excellent reading if you want to understand how modern AI systems are developed responsibly.</p>
+          <span class="tag tag-new">Enterprise</span>
+          <h3>Vertex AI Generative AI</h3>
+          <p>Production-grade Gemini on Google Cloud — enterprise security, tuning, evaluation, and integration with the rest of GCP.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
@@ -329,25 +329,25 @@
 
       <div class="sidebar-card">
         <h4>Quick Links</h4>
-        <a href="https://claude.ai" target="_blank" class="quick-link">✨ Claude.ai</a>
-        <a href="https://docs.anthropic.com" target="_blank" class="quick-link">📖 Anthropic Docs</a>
-        <a href="https://console.anthropic.com" target="_blank" class="quick-link">⚙️ API Console</a>
-        <a href="https://www.anthropic.com/news" target="_blank" class="quick-link">📰 Anthropic News</a>
+        <a href="https://gemini.google.com" target="_blank" class="quick-link">✨ Gemini App</a>
+        <a href="https://aistudio.google.com" target="_blank" class="quick-link">🛝 AI Studio</a>
+        <a href="https://ai.google.dev" target="_blank" class="quick-link">⚙️ Developer Hub</a>
+        <a href="https://blog.google/technology/ai/" target="_blank" class="quick-link">📰 Google AI Blog</a>
       </div>
 
       <div class="sidebar-card">
         <h4>About this resource</h4>
         <p style="font-size:13px;color:#6b7280;line-height:1.6;">
-          <strong>Cost:</strong> Free docs &amp; Claude.ai free tier<br>
-          <strong>Account needed:</strong> Optional (Claude.ai)<br>
-          <strong>Best for:</strong> AI users &amp; developers<br>
+          <strong>Cost:</strong> Free tier + paid plans<br>
+          <strong>Account needed:</strong> Google account<br>
+          <strong>Best for:</strong> Multimodal &amp; long-context<br>
           <strong>Updated:</strong> Regularly
         </p>
       </div>
 
-      <div class="sidebar-card" style="background:linear-gradient(135deg,#faf5ff,#fff0f6);border-color:#d8b4fe;">
-        <h4 style="color:#6b21a8;">Also see</h4>
-        <p style="font-size:13px;color:#374151;line-height:1.6;">Check out the <strong>Writing Better Prompts</strong> guide in the How-To section of the hub for practical, hands-on prompt tips.</p>
+      <div class="sidebar-card" style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-color:#93c5fd;">
+        <h4 style="color:#1e3a8a;">Also see</h4>
+        <p style="font-size:13px;color:#374151;line-height:1.6;">Gemini has the largest context window of the major models — great for long docs. Combine with the <strong>Writing Better Prompts</strong> guide for best results.</p>
       </div>
 
     </aside>

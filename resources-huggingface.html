@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anthropic &amp; Claude Resources | AI Training Hub</title>
+  <title>Hugging Face Resources | AI Training Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +22,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 12px rgba(79,142,247,0.07);
+      box-shadow: 0 2px 12px rgba(255,159,0,0.07);
     }
     .nav-inner {
       max-width: 860px;
@@ -37,7 +37,7 @@
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 0.95rem;
-      color: #4f8ef7;
+      color: #d97706;
       text-decoration: none;
     }
     .nav-back {
@@ -50,10 +50,10 @@
       gap: 5px;
       transition: color 0.15s;
     }
-    .nav-back:hover { color: #4f8ef7; }
+    .nav-back:hover { color: #d97706; }
 
     .page-hero {
-      background: linear-gradient(135deg, #6b21a8 0%, #a259f7 60%, #f7599a 100%);
+      background: linear-gradient(135deg, #b45309 0%, #f59e0b 55%, #fbbf24 100%);
       padding: 3rem 2rem 3.5rem;
       position: relative;
       overflow: hidden;
@@ -62,7 +62,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
       background-size: 36px 36px;
     }
     .page-hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
@@ -86,7 +86,7 @@
       margin-bottom: 0.75rem;
       text-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .page-hero p { color: rgba(255,255,255,0.9); font-size: 15px; font-weight: 600; max-width: 560px; }
+    .page-hero p { color: rgba(255,255,255,0.92); font-size: 15px; font-weight: 600; max-width: 560px; }
 
     .page-layout {
       max-width: 860px;
@@ -138,18 +138,18 @@
     .link-body { flex: 1; min-width: 0; }
     .link-body h3 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
     .link-body p { font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5; }
-    .link-arrow { font-size: 18px; color: #a259f7; align-self: center; flex-shrink: 0; }
+    .link-arrow { font-size: 18px; color: #d97706; align-self: center; flex-shrink: 0; }
 
     .tip {
-      background: #faf5ff;
-      border-left: 4px solid #a259f7;
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
       border-radius: 12px;
       padding: 1rem 1.1rem;
       margin: 1rem 0;
       display: flex;
       gap: 10px;
       font-size: 14px;
-      color: #3b0764;
+      color: #78350f;
       line-height: 1.6;
     }
 
@@ -167,6 +167,7 @@
     .tag-prompts { background: #ede9fe; color: #6b21a8; }
     .tag-api     { background: #ddeeff; color: #1a5fa8; }
     .tag-new     { background: #ffe0ec; color: #b5235e; }
+    .tag-os      { background: #fff0d4; color: #b36200; }
 
     .page-sidebar { position: sticky; top: 78px; }
     .sidebar-card {
@@ -191,14 +192,14 @@
       gap: 8px;
       font-size: 13px;
       font-weight: 700;
-      color: #a259f7;
+      color: #d97706;
       text-decoration: none;
       padding: 6px 0;
       border-bottom: 1px solid #f0f0f0;
       transition: color 0.15s;
     }
     .quick-link:last-child { border-bottom: none; }
-    .quick-link:hover { color: #6b21a8; }
+    .quick-link:hover { color: #78350f; }
 
     footer {
       text-align: center;
@@ -208,7 +209,7 @@
       border-top: 1px solid #e8eaf0;
       background: #fff;
     }
-    footer a { color: #4f8ef7; text-decoration: none; }
+    footer a { color: #d97706; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
     @media (max-width: 680px) {
@@ -230,95 +231,103 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <div class="page-badge">🔗 Training Resource</div>
-      <h1>Anthropic &amp; Claude Resources</h1>
-      <p>Official learning resources for prompt engineering, the Claude API, Claude Code, and getting the most out of AI in your day-to-day work.</p>
+      <h1>Hugging Face Resources</h1>
+      <p>The home of open-source AI — models, datasets, Spaces, and free courses on transformers, diffusion, NLP, agents, and reinforcement learning.</p>
     </div>
   </section>
 
   <div class="page-layout">
     <article class="page-content">
 
-      <p>Anthropic is the company behind Claude. Their official docs, guides and research are some of the best resources available for understanding how to work effectively with large language models — whether you're writing prompts or building applications.</p>
+      <p>Hugging Face is the GitHub of machine learning. It hosts hundreds of thousands of open-source models and datasets, along with free high-quality courses that are considered industry standard. If you want to understand how AI actually works — not just use it — this is where to go.</p>
 
       <div class="tip">
-        <span>💡</span>
-        <span><strong>Where to start:</strong> If you're new to Claude, begin with the Prompt Engineering guide. If you want to use Claude in your own tools or workflows, head straight to the API documentation.</span>
+        <span>🤗</span>
+        <span><strong>Where to start:</strong> Absolute beginners should start with the free NLP or LLM Course. If you want to try models instantly, explore Spaces. For production, head to the Inference API or Transformers docs.</span>
       </div>
 
-      <h2>Getting Started with Claude</h2>
+      <h2>Free Courses</h2>
 
-      <a href="https://claude.ai" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ede9fe;">✨</div>
+      <a href="https://huggingface.co/learn/llm-course" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#fff0d4;">🎓</div>
         <div class="link-body">
-          <span class="tag tag-free">Free tier</span>
-          <h3>Claude.ai — Chat Interface</h3>
-          <p>The main web interface for chatting with Claude. Free tier available. Great starting point to explore what Claude can do before diving into APIs.</p>
+          <span class="tag tag-free">Free</span>
+          <h3>LLM Course</h3>
+          <p>A comprehensive, hands-on course covering LLMs, transformers, fine-tuning, and deployment — entirely free, with runnable notebooks and Hugging Face tools.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <a href="https://docs.anthropic.com/en/docs/intro-to-claude" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ede9fe;">📖</div>
+      <a href="https://huggingface.co/learn/agents-course" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#fff0d4;">🧠</div>
         <div class="link-body">
-          <span class="tag tag-prompts">Docs</span>
-          <h3>Introduction to Claude</h3>
-          <p>Official Anthropic documentation — covers Claude's capabilities, model overview, and how to start building or prompting effectively.</p>
+          <span class="tag tag-free">Free</span>
+          <h3>AI Agents Course</h3>
+          <p>Free course on building AI agents from scratch — covers agent loops, tool use, LangGraph, smolagents, and practical agentic patterns.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <h2>Prompt Engineering</h2>
-
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#faf5ff;">🧠</div>
+      <a href="https://huggingface.co/learn/deep-rl-course" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#fff0d4;">🎮</div>
         <div class="link-body">
-          <span class="tag tag-prompts">Prompt Eng.</span>
-          <h3>Prompt Engineering Overview</h3>
-          <p>Anthropic's official guide to writing effective prompts — covers structure, roles, chain-of-thought, and getting consistent results.</p>
+          <span class="tag tag-free">Free</span>
+          <h3>Deep Reinforcement Learning Course</h3>
+          <p>From Q-learning to PPO to training agents in Unity and Godot — a classic, high-quality free course for anyone interested in RL.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-library" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#faf5ff;">📋</div>
+      <h2>Explore Models &amp; Datasets</h2>
+
+      <a href="https://huggingface.co/models" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#fff0d4;">🧩</div>
         <div class="link-body">
-          <span class="tag tag-prompts">Examples</span>
-          <h3>Prompt Library</h3>
-          <p>A curated library of ready-to-use prompts covering coding, writing, analysis, and more — great for inspiration and learning patterns.</p>
+          <span class="tag tag-os">Open source</span>
+          <h3>Model Hub</h3>
+          <p>Browse 1M+ open-source models — Llama, Mistral, Qwen, Gemma, Stable Diffusion, Whisper, and everything else. Most are free to download and run locally.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
 
-      <h2>Developer &amp; API Resources</h2>
+      <a href="https://huggingface.co/spaces" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#fff0d4;">🚀</div>
+        <div class="link-body">
+          <span class="tag tag-free">Try instantly</span>
+          <h3>Spaces</h3>
+          <p>Thousands of interactive demos running in your browser — try new models, chat UIs, image generators, and agents without installing anything.</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
 
-      <a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener" class="link-card">
+      <a href="https://huggingface.co/datasets" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#fff0d4;">📊</div>
+        <div class="link-body">
+          <span class="tag tag-os">Datasets</span>
+          <h3>Dataset Hub</h3>
+          <p>200k+ open datasets for training and evaluation — ready to load with a single line of Python via the <code>datasets</code> library.</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <h2>Developer Docs &amp; Tools</h2>
+
+      <a href="https://huggingface.co/docs/transformers/index" target="_blank" rel="noopener" class="link-card">
         <div class="link-icon" style="background:#ddeeff;">⚙️</div>
         <div class="link-body">
+          <span class="tag tag-api">Library</span>
+          <h3>Transformers Documentation</h3>
+          <p>The flagship Hugging Face library — the standard way to load and run open-source models in Python. Works with PyTorch, TensorFlow and JAX.</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="https://huggingface.co/docs/inference-providers" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon" style="background:#ddeeff;">☁️</div>
+        <div class="link-body">
           <span class="tag tag-api">API</span>
-          <h3>Claude API — Getting Started</h3>
-          <p>Everything you need to integrate Claude into your own applications, scripts, or automations. Includes authentication, request formats and SDKs.</p>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-
-      <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ddeeff;">💻</div>
-        <div class="link-body">
-          <span class="tag tag-new">Claude Code</span>
-          <h3>Claude Code Documentation</h3>
-          <p>Official docs for Claude Code — the agentic coding CLI. Covers installation, usage, hooks, slash commands and MCP server setup.</p>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-
-      <h2>Research &amp; Safety</h2>
-
-      <a href="https://www.anthropic.com/research" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background:#ffe0ec;">🔬</div>
-        <div class="link-body">
-          <span class="tag tag-new">Research</span>
-          <h3>Anthropic Research Papers</h3>
-          <p>Published papers on AI safety, interpretability, and model behaviour. Excellent reading if you want to understand how modern AI systems are developed responsibly.</p>
+          <h3>Inference Providers</h3>
+          <p>Run open-source models in the cloud via a single API — serverless access to hundreds of models across providers, with a generous free tier.</p>
         </div>
         <span class="link-arrow">→</span>
       </a>
@@ -329,25 +338,26 @@
 
       <div class="sidebar-card">
         <h4>Quick Links</h4>
-        <a href="https://claude.ai" target="_blank" class="quick-link">✨ Claude.ai</a>
-        <a href="https://docs.anthropic.com" target="_blank" class="quick-link">📖 Anthropic Docs</a>
-        <a href="https://console.anthropic.com" target="_blank" class="quick-link">⚙️ API Console</a>
-        <a href="https://www.anthropic.com/news" target="_blank" class="quick-link">📰 Anthropic News</a>
+        <a href="https://huggingface.co" target="_blank" class="quick-link">🏠 Home</a>
+        <a href="https://huggingface.co/learn" target="_blank" class="quick-link">🎓 All Courses</a>
+        <a href="https://huggingface.co/models" target="_blank" class="quick-link">🧩 Model Hub</a>
+        <a href="https://huggingface.co/spaces" target="_blank" class="quick-link">🚀 Spaces</a>
+        <a href="https://huggingface.co/blog" target="_blank" class="quick-link">📰 Blog</a>
       </div>
 
       <div class="sidebar-card">
         <h4>About this resource</h4>
         <p style="font-size:13px;color:#6b7280;line-height:1.6;">
-          <strong>Cost:</strong> Free docs &amp; Claude.ai free tier<br>
-          <strong>Account needed:</strong> Optional (Claude.ai)<br>
-          <strong>Best for:</strong> AI users &amp; developers<br>
-          <strong>Updated:</strong> Regularly
+          <strong>Cost:</strong> Free — Pro plan optional<br>
+          <strong>Account needed:</strong> Optional (free)<br>
+          <strong>Best for:</strong> Open-source &amp; learners<br>
+          <strong>Updated:</strong> Daily
         </p>
       </div>
 
-      <div class="sidebar-card" style="background:linear-gradient(135deg,#faf5ff,#fff0f6);border-color:#d8b4fe;">
-        <h4 style="color:#6b21a8;">Also see</h4>
-        <p style="font-size:13px;color:#374151;line-height:1.6;">Check out the <strong>Writing Better Prompts</strong> guide in the How-To section of the hub for practical, hands-on prompt tips.</p>
+      <div class="sidebar-card" style="background:linear-gradient(135deg,#fffbeb,#fff7ed);border-color:#fcd34d;">
+        <h4 style="color:#92400e;">Also see</h4>
+        <p style="font-size:13px;color:#374151;line-height:1.6;">Pair the Hugging Face <strong>LLM Course</strong> with the <strong>Getting Started with AI Agents</strong> guide in the How-To section to go from theory straight to building.</p>
       </div>
 
     </aside>
