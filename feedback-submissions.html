@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Submissions | Tony's AI &amp; Cloud Training Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f4f6fb;
+      color: #1a1a2e;
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e8eaf0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(79,142,247,0.07);
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+    .nav-brand {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #4f8ef7;
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 13px;
+      font-weight: 700;
+      color: #6b7280;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: #4f8ef7; }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, #1a7a42 0%, #2ecc71 60%, #4f8ef7 100%);
+      padding: 2.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+    .page-hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .hero-text {}
+    .page-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 50px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .page-hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .page-hero p { color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stats-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .stat-pill {
+      background: #fff;
+      border: 1px solid #e8eaf0;
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-pill span { color: #2ecc71; font-size: 15px; }
+
+    .action-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-export { background: #4f8ef7; color: #fff; }
+    .btn-clear  { background: #fff; color: #e74c3c; border: 1.5px solid #e74c3c; }
+    .btn-clear:hover { background: #fff5f5; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      max-width: 900px;
+      margin: 0 auto 0;
+      padding: 0 2rem 1.25rem;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 50px;
+      border: 1.5px solid #e4e8f0;
+      background: #fff;
+      color: #6b7280;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: #2ecc71; color: #1a7a42; }
+    .filter-btn.active { background: #2ecc71; border-color: #2ecc71; color: #fff; }
+
+    /* ── MAIN CONTENT ── */
+    .main-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      display: none;
+    }
+    .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.5rem;
+    }
+    .empty-state p { font-size: 14px; color: #9ca3af; }
+    .empty-state a { color: #4f8ef7; text-decoration: none; font-weight: 700; }
+    .empty-state a:hover { text-decoration: underline; }
+
+    /* ── SUBMISSION CARDS ── */
+    #submissions-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .submission-card {
+      background: #fff;
+      border: 1px solid #e8eaf0;
+      border-radius: 16px;
+      padding: 1.25rem 1.4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem 1rem;
+      align-items: start;
+      transition: box-shadow 0.15s;
+    }
+    .submission-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .submission-card.unread { border-left: 4px solid #2ecc71; }
+    .submission-card.actioned { opacity: 0.65; }
+    .submission-card.actioned .card-msg { text-decoration: line-through; color: #9ca3af; }
+
+    .card-main {}
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .card-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .card-type {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .type-suggest-link     { background: #ddeeff; color: #1a5fa8; }
+    .type-suggest-video    { background: #ffe0ec; color: #b5235e; }
+    .type-request-guide    { background: #fff0d4; color: #b36200; }
+    .type-broken-link      { background: #fee2e2; color: #b91c1c; }
+    .type-improvement      { background: #d4f5e2; color: #1a7a42; }
+    .type-general          { background: #f0f0f0; color: #555e75; }
+
+    .card-meta {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 0.6rem;
+    }
+    .card-msg {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.6;
+      background: #f9fafc;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    .action-btn {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 50px;
+      border: 1.5px solid #e4e8f0;
+      background: #fff;
+      cursor: pointer;
+      color: #6b7280;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .action-btn:hover { border-color: #4f8ef7; color: #4f8ef7; }
+    .action-btn.done-btn { border-color: #2ecc71; color: #1a7a42; background: #f0fdf4; }
+    .action-btn.done-btn:hover { background: #dcfce7; }
+    .action-btn.delete-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+
+    .unread-badge {
+      font-size: 10px;
+      font-weight: 800;
+      background: #2ecc71;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 50px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 13px;
+      color: #9ca3af;
+      border-top: 1px solid #e8eaf0;
+      background: #fff;
+    }
+    footer a { color: #4f8ef7; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav-inner { padding: 0 1rem; }
+      .stats-strip { padding: 1rem; }
+      .filter-bar { padding: 0 1rem 1rem; }
+      .main-wrap { padding: 0 1rem 3rem; }
+      .submission-card { grid-template-columns: 1fr; }
+      .card-actions { flex-direction: row; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">🚀 Tony's AI &amp; Cloud Hub</a>
+      <a href="index.html#feedback" class="nav-back">← Back to hub</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-text">
+        <div class="page-badge">💬 Admin View</div>
+        <h1>Feedback &amp; Suggestions</h1>
+        <p>All submissions from the hub feedback form, saved in this browser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS + ACTIONS -->
+  <div class="stats-strip">
+    <div class="stats-group">
+      <div class="stat-pill"><span id="total-count">0</span> total</div>
+      <div class="stat-pill"><span id="unread-count">0</span> unread</div>
+      <div class="stat-pill"><span id="actioned-count">0</span> actioned</div>
+    </div>
+    <div class="action-group">
+      <button class="btn btn-export" onclick="exportCSV()">⬇️ Export CSV</button>
+      <button class="btn btn-clear" onclick="clearAll()">🗑️ Clear all</button>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" data-filter="unread" onclick="setFilter('unread', this)">🟢 Unread</button>
+    <button class="filter-btn" data-filter="actioned" onclick="setFilter('actioned', this)">✓ Actioned</button>
+    <button class="filter-btn" data-filter="Suggest a training link" onclick="setFilter('Suggest a training link', this)">🔗 Training link</button>
+    <button class="filter-btn" data-filter="Suggest a video" onclick="setFilter('Suggest a video', this)">🎬 Video</button>
+    <button class="filter-btn" data-filter="Request a how-to guide" onclick="setFilter('Request a how-to guide', this)">📖 Guide</button>
+    <button class="filter-btn" data-filter="Report a broken link" onclick="setFilter('Report a broken link', this)">🔴 Broken link</button>
+    <button class="filter-btn" data-filter="General improvement idea" onclick="setFilter('General improvement idea', this)">💡 Improvement</button>
+  </div>
+
+  <!-- SETUP NOTICE (shown until Supabase is configured) -->
+  <div id="setup-notice" style="display:none;max-width:900px;margin:0 auto 0;padding:0 2rem 1.5rem;">
+    <div style="background:#fffbeb;border:1.5px solid #fbbf24;border-radius:14px;padding:1.25rem 1.5rem;">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:1.5rem;flex-shrink:0;">⚙️</span>
+        <div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#92400e;margin-bottom:0.5rem;">Supabase setup required — submissions aren't being saved to a database yet</p>
+          <p style="font-size:13px;color:#78350f;line-height:1.7;margin-bottom:0.75rem;">Follow these 4 steps to connect a free persistent database. Takes about 5 minutes.</p>
+          <ol style="font-size:13px;color:#78350f;line-height:2;padding-left:1.2rem;">
+            <li>Go to <a href="https://supabase.com" target="_blank" style="color:#d97706;font-weight:700;">supabase.com</a> → sign up free → create a new project (pick any region)</li>
+            <li>Once the project loads, click <strong>SQL Editor</strong> in the left sidebar and run this query:<br>
+              <code style="display:block;margin:6px 0;background:#fef3c7;border-radius:6px;padding:8px 12px;font-size:12px;line-height:1.8;color:#1a1a2e;">
+                create table feedback (<br>
+                &nbsp;&nbsp;id bigint generated always as identity primary key,<br>
+                &nbsp;&nbsp;name text not null default 'Anonymous',<br>
+                &nbsp;&nbsp;type text not null default 'General',<br>
+                &nbsp;&nbsp;message text not null,<br>
+                &nbsp;&nbsp;actioned boolean not null default false,<br>
+                &nbsp;&nbsp;created_at timestamptz not null default now()<br>
+                );<br>
+                alter table feedback enable row level security;<br>
+                create policy "anon_all" on feedback for all to anon using (true) with check (true);
+              </code>
+            </li>
+            <li>Go to <strong>Project Settings → API</strong> — copy your <strong>Project URL</strong> and <strong>anon / public key</strong></li>
+            <li>Open <strong>index.html</strong> and <strong>feedback-submissions.html</strong> in a text editor — replace <code style="background:#fef3c7;padding:2px 6px;border-radius:4px;">YOUR_PROJECT_REF</code> and <code style="background:#fef3c7;padding:2px 6px;border-radius:4px;">sb_publishable_4Lnq5dM-5j8K6lDtunhcFw_pSDyc64O</code> with your copied values, then push to GitHub</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMISSIONS -->
+  <div class="main-wrap">
+    <div id="submissions-list"></div>
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">📭</div>
+      <h2>No submissions yet</h2>
+      <p>Once someone submits feedback on the hub, it will appear here.<br>
+        <a href="index.html#feedback">Go to the feedback form →</a>
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <p>Part of <a href="index.html">Tony's AI &amp; Cloud Training Hub</a> &mdash; built with ❤️ and Claude</p>
+  </footer>
+
+  <script>
+    // ── Supabase config ──────────────────────────────────────────
+    // Replace these with your project values (see setup notice above)
+    const SUPABASE_URL      = 'https://kundtbwlkwvimtakfwuq.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_4Lnq5dM-5j8K6lDtunhcFw_pSDyc64O';
+    const SB_CONFIGURED     = !SUPABASE_URL.includes('YOUR_PROJECT_REF');
+
+    // Read state is kept locally — it's a UI concern, not stored in DB
+    const READ_KEY      = 'training_hub_feedback_read';
+    let currentFilter   = 'all';
+    let allSubmissions  = [];
+
+    // ── Show/hide setup notice ───────────────────────────────────
+    if (!SB_CONFIGURED) {
+      document.getElementById('setup-notice').style.display = 'block';
+    }
+
+    // ── Supabase helpers ─────────────────────────────────────────
+    function sbHeaders() {
+      return {
+        'Content-Type':  'application/json',
+        'apikey':        SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      };
+    }
+
+    async function sbFetch() {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/feedback?order=created_at.desc`,
+        { headers: sbHeaders() }
+      );
+      if (!res.ok) throw new Error(`Could not load submissions (${res.status})`);
+      return res.json();
+    }
+
+    async function sbPatchActioned(id, actioned) {
+      await fetch(`${SUPABASE_URL}/rest/v1/feedback?id=eq.${id}`, {
+        method:  'PATCH',
+        headers: sbHeaders(),
+        body:    JSON.stringify({ actioned })
+      });
+    }
+
+    async function sbDeleteOne(id) {
+      await fetch(`${SUPABASE_URL}/rest/v1/feedback?id=eq.${id}`, {
+        method: 'DELETE', headers: sbHeaders()
+      });
+    }
+
+    async function sbDeleteAll() {
+      await fetch(`${SUPABASE_URL}/rest/v1/feedback?id=gte.0`, {
+        method: 'DELETE', headers: sbHeaders()
+      });
+    }
+
+    // ── localStorage fallback helpers (used when not configured) ─
+    function lsGetSubmissions() {
+      try { return JSON.parse(localStorage.getItem('training_hub_feedback') || '[]'); }
+      catch { return []; }
+    }
+
+    // ── Read tracking (localStorage) ────────────────────────────
+    function getRead() {
+      try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); }
+      catch { return new Set(); }
+    }
+    function saveRead(set) {
+      localStorage.setItem(READ_KEY, JSON.stringify([...set]));
+    }
+
+    // ── Utilities ────────────────────────────────────────────────
+    function typeClass(type) {
+      const map = {
+        'Suggest a training link':  'type-suggest-link',
+        'Suggest a video':          'type-suggest-video',
+        'Request a how-to guide':   'type-request-guide',
+        'Report a broken link':     'type-broken-link',
+        'General improvement idea': 'type-improvement',
+      };
+      return map[type] || 'type-general';
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+        + ' at ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function setLoading(on) {
+      const list = document.getElementById('submissions-list');
+      if (on) list.innerHTML = '<p style="text-align:center;padding:3rem;color:#9ca3af;font-size:14px;">⏳ Loading submissions…</p>';
+    }
+
+    // ── Render ───────────────────────────────────────────────────
+    function render() {
+      const read     = getRead();
+      const source   = allSubmissions;
+
+      // Mark all visible as read
+      source.forEach(s => read.add(s.id));
+      saveRead(read);
+
+      const total    = source.length;
+      const actioned = source.filter(s => s.actioned).length;
+      // unread = everything not previously seen before this page load
+      document.getElementById('total-count').textContent    = total;
+      document.getElementById('actioned-count').textContent = actioned;
+      // unread count reflects new items since last visit (tracked before render marks them read)
+      // already set in loadSubmissions before calling render
+
+      // Apply filter
+      let filtered = source;
+      if (currentFilter === 'unread') {
+        filtered = source.filter(s => !read.has(s.id));
+      } else if (currentFilter === 'actioned') {
+        filtered = source.filter(s => s.actioned);
+      } else if (currentFilter !== 'all') {
+        filtered = source.filter(s => s.type === currentFilter);
+      }
+
+      const list  = document.getElementById('submissions-list');
+      const empty = document.getElementById('empty-state');
+
+      if (filtered.length === 0) {
+        list.innerHTML = '';
+        empty.style.display = 'block';
+        if (total > 0 && currentFilter !== 'all') {
+          empty.querySelector('h2').textContent  = 'No submissions match this filter';
+          empty.querySelector('p').innerHTML     = 'Try a different filter above.';
+        } else {
+          empty.querySelector('h2').textContent  = 'No submissions yet';
+          empty.querySelector('p').innerHTML     = 'Once someone submits feedback on the hub, it will appear here.<br><a href="index.html#feedback">Go to the feedback form →</a>';
+        }
+      } else {
+        empty.style.display = 'none';
+        list.innerHTML = filtered.map(s => {
+          const isNew = !read.has(s.id);
+          return `
+            <div class="submission-card ${isNew ? 'unread' : ''} ${s.actioned ? 'actioned' : ''}">
+              <div class="card-main">
+                <div class="card-header">
+                  <span class="card-name">${escHtml(s.name)}</span>
+                  <span class="card-type ${typeClass(s.type)}">${escHtml(s.type || 'General')}</span>
+                  ${isNew ? '<span class="unread-badge">New</span>' : ''}
+                </div>
+                <div class="card-meta">📅 ${formatDate(s.created_at)}</div>
+                <div class="card-msg">${escHtml(s.message)}</div>
+              </div>
+              <div class="card-actions">
+                <button class="action-btn done-btn" onclick="toggleActioned(${s.id}, ${s.actioned})">
+                  ${s.actioned ? '↩ Undo' : '✓ Mark actioned'}
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteEntry(${s.id})">🗑 Delete</button>
+              </div>
+            </div>`;
+        }).join('');
+      }
+    }
+
+    // ── Load data ────────────────────────────────────────────────
+    async function loadSubmissions() {
+      setLoading(true);
+      try {
+        if (SB_CONFIGURED) {
+          allSubmissions = await sbFetch();
+        } else {
+          // Fallback: show localStorage submissions until Supabase is set up
+          const ls = lsGetSubmissions();
+          // Normalise field names to match Supabase schema
+          allSubmissions = ls.map(s => ({
+            id:         s.id,
+            name:       s.name,
+            type:       s.type,
+            message:    s.message,
+            actioned:   false,
+            created_at: s.date || s.created_at || new Date().toISOString()
+          }));
+        }
+      } catch(err) {
+        document.getElementById('submissions-list').innerHTML =
+          `<div style="text-align:center;padding:3rem;color:#e74c3c;font-size:14px;">
+            ⚠️ Could not load submissions: ${escHtml(err.message)}<br>
+            <button onclick="loadSubmissions()" style="margin-top:1rem;padding:8px 20px;border-radius:50px;border:1.5px solid #e74c3c;background:#fff;color:#e74c3c;font-weight:700;cursor:pointer;font-family:inherit;">
+              Retry
+            </button>
+          </div>`;
+        return;
+      }
+
+      // Count unread BEFORE render marks them read
+      const read = getRead();
+      const unread = allSubmissions.filter(s => !read.has(s.id)).length;
+      document.getElementById('unread-count').textContent = unread;
+
+      render();
+    }
+
+    // ── Actions ──────────────────────────────────────────────────
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
+
+    async function toggleActioned(id, current) {
+      const newVal = !current;
+      if (SB_CONFIGURED) {
+        await sbPatchActioned(id, newVal);
+        await loadSubmissions();
+      } else {
+        // Toggle in local array for localStorage mode
+        allSubmissions = allSubmissions.map(s => s.id === id ? { ...s, actioned: newVal } : s);
+        render();
+      }
+    }
+
+    async function deleteEntry(id) {
+      if (!confirm('Delete this submission?')) return;
+      if (SB_CONFIGURED) {
+        await sbDeleteOne(id);
+        await loadSubmissions();
+      } else {
+        allSubmissions = allSubmissions.filter(s => s.id !== id);
+        const ls = lsGetSubmissions().filter(s => s.id !== id);
+        localStorage.setItem('training_hub_feedback', JSON.stringify(ls));
+        render();
+      }
+    }
+
+    async function clearAll() {
+      if (!confirm('Delete ALL feedback submissions? This cannot be undone.')) return;
+      if (SB_CONFIGURED) {
+        await sbDeleteAll();
+        await loadSubmissions();
+      } else {
+        localStorage.removeItem('training_hub_feedback');
+        allSubmissions = [];
+        render();
+      }
+    }
+
+    function exportCSV() {
+      if (!allSubmissions.length) { alert('No submissions to export.'); return; }
+      const headers = ['Date', 'Name', 'Type', 'Message', 'Actioned'];
+      const rows = allSubmissions.map(s => [
+        formatDate(s.created_at),
+        s.name,
+        s.type,
+        s.message.replace(/"/g, '""'),
+        s.actioned ? 'Yes' : 'No'
+      ].map(v => `"${v}"`).join(','));
+      const csv   = [headers.join(','), ...rows].join('\n');
+      const blob  = new Blob([csv], { type: 'text/csv' });
+      const url   = URL.createObjectURL(blob);
+      const a     = document.createElement('a');
+      a.href      = url;
+      a.download  = 'hub-feedback-' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // ── Boot ─────────────────────────────────────────────────────
+    loadSubmissions();
+  </script>
+
+</body>
+</html>

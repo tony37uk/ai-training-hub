@@ -1,0 +1,203 @@
+{
+  "sections": [
+    {
+      "id": "ai-resources",
+      "title": "AI Resources",
+      "icon": "\ud83e\udd16",
+      "iconBg": "#ede9fe",
+      "titleColor": "#6d28d9",
+      "type": "link",
+      "cards": [
+        {
+          "tag": "OpenAI",
+          "tagClass": "tag-purple",
+          "title": "ChatGPT",
+          "description": "OpenAI's conversational AI \u2014 great for writing, coding, and brainstorming.",
+          "url": "https://chatgpt.com",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Anthropic",
+          "tagClass": "tag-purple",
+          "title": "Claude",
+          "description": "Anthropic's AI assistant \u2014 helpful, harmless, and honest.",
+          "url": "https://claude.ai",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Microsoft",
+          "tagClass": "tag-purple",
+          "title": "Microsoft Copilot",
+          "description": "AI assistant built into Microsoft 365 and Windows \u2014 your everyday AI.",
+          "url": "https://copilot.microsoft.com",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Alibaba",
+          "tagClass": "tag-purple",
+          "title": "Qwen",
+          "description": "Alibaba's powerful open-source large language model family.",
+          "url": "https://qwenlm.github.io",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "DeepSeek",
+          "tagClass": "tag-purple",
+          "title": "DeepSeek",
+          "description": "High-performance AI model from DeepSeek \u2014 strong at reasoning and code.",
+          "url": "https://chat.deepseek.com",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Google",
+          "tagClass": "tag-purple",
+          "title": "Gemini",
+          "description": "Google's multimodal AI \u2014 integrated with Search, Docs, and more.",
+          "url": "https://gemini.google.com",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Perplexity",
+          "tagClass": "tag-purple",
+          "title": "Perplexity AI",
+          "description": "AI-powered search engine \u2014 get cited, up-to-date answers instantly.",
+          "url": "https://www.perplexity.ai",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "xAI",
+          "tagClass": "tag-purple",
+          "title": "Grok",
+          "description": "xAI's conversational AI with real-time access to X/Twitter data and web search.",
+          "url": "https://grok.com",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Meta",
+          "tagClass": "tag-purple",
+          "title": "Meta AI",
+          "description": "Meta's AI assistant built into Facebook, Instagram, WhatsApp and the web.",
+          "url": "https://www.meta.ai",
+          "linkLabel": "Visit \u2192"
+        }
+      ]
+    },
+    {
+      "id": "links",
+      "title": "Training Links",
+      "icon": "\ud83d\udd17",
+      "iconBg": "#ddeeff",
+      "titleColor": "#1a5fa8",
+      "type": "link",
+      "cards": [
+        {
+          "tag": "AI",
+          "tagClass": "tag-blue",
+          "title": "Anthropic Academy",
+          "description": "Learn prompt engineering and how to get the best out of Claude.",
+          "url": "https://www.anthropic.com/learn",
+          "subPageUrl": "resources-anthropic-academy.html",
+          "linkLabel": "Visit \u2192"
+        }
+      ]
+    },
+    {
+      "id": "guides",
+      "title": "How-To Guides",
+      "icon": "\ud83d\udcd6",
+      "iconBg": "#fff0d4",
+      "titleColor": "#b36200",
+      "type": "link",
+      "cards": [
+        {
+          "tag": "Beginner",
+          "tagClass": "tag-orange",
+          "title": "Setting Up GitHub Pages",
+          "description": "Step-by-step guide to hosting your first static website for free.",
+          "url": "guide-github-pages.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "Prompt Eng.",
+          "tagClass": "tag-orange",
+          "title": "Writing Better Prompts",
+          "description": "Practical tips for getting great results from AI tools like Claude.",
+          "url": "guide-writing-better-prompts.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "Claude Code",
+          "tagClass": "tag-orange",
+          "title": "Getting Started with Claude Code",
+          "description": "Install, configure and run your first Claude Code session in minutes.",
+          "url": "guide-claude-code.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "AI Agents",
+          "tagClass": "tag-orange",
+          "title": "Getting Started with AI Agents",
+          "description": "What AI agents are, how they work, and how to get started safely as an IT professional.",
+          "url": "guide-ai-agents.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "OpenClaw",
+          "tagClass": "tag-orange",
+          "title": "Getting Started with OpenClaw",
+          "description": "Install and use OpenClaw \u2014 the open-source personal AI assistant that lives on your machine.",
+          "url": "guide-openclaw.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "Vibe Coding",
+          "tagClass": "tag-orange",
+          "title": "Getting Started with Vibe Coding",
+          "description": "Build real software using plain English and AI tools \u2014 no coding experience required.",
+          "url": "guide-vibe-coding.html",
+          "linkLabel": "Read guide \u2192"
+        }
+      ]
+    },
+    {
+      "id": "videos",
+      "title": "Training Videos",
+      "icon": "\ud83c\udfac",
+      "iconBg": "#ffe0ec",
+      "titleColor": "#b5235e",
+      "type": "video",
+      "cards": [
+        {
+          "thumb": "\ud83e\udd16",
+          "thumbBg": "#ffe0ec",
+          "tag": "AI Basics",
+          "tagClass": "tag-pink",
+          "title": "Intro to AI for IT Pros",
+          "description": "A 35-minute beginner's guide to generative AI \u2014 covering neural networks, tokens, prompting, RAG, hallucinations and more.",
+          "url": "https://www.youtube.com/watch?v=O3F0AVd0nSc",
+          "linkLabel": "Watch \u2192"
+        },
+        {
+          "thumb": "\ud83e\udd16",
+          "thumbBg": "#ede9fe",
+          "tag": "AI Coding",
+          "tagClass": "tag-purple",
+          "title": "AI-Assisted Coding Tutorial",
+          "description": "A hands-on tutorial showing how to build and ship projects faster using AI coding tools.",
+          "url": "https://www.youtube.com/watch?v=wlpBCazAY9Q&t=153s",
+          "linkLabel": "Watch on YouTube \u2192"
+        },
+        {
+          "thumb": "\ud83d\udcca",
+          "thumbBg": "#d4f5e2",
+          "tag": "LLM",
+          "tagClass": "tag-green",
+          "title": "Intro to Large Language Models",
+          "description": "A 1-hour general-audience introduction to Large Language Models \u2014 the core technical component behind systems like ChatGPT, Claude, and Bard.",
+          "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+          "linkLabel": "Watch on YouTube \u2192"
+        }
+      ]
+    }
+  ]
+}
