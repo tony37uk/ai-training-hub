@@ -233,6 +233,16 @@
           "description": "A quick-start guide to Ollama \u2014 run open-source LLMs like Llama, Mistral and Qwen on your own machine, privately and for free.",
           "url": "https://www.youtube.com/watch?v=5RIOQuHOihY&t=15s",
           "linkLabel": "Watch on YouTube \u2192"
+        },
+        {
+          "thumb": "\ud83e\uddbe",
+          "thumbBg": "#ccfbf1",
+          "tag": "OpenClaw",
+          "tagClass": "tag-green",
+          "title": "OpenClaw Full Tutorial: Set up your first AI employee!",
+          "description": "A full walkthrough of OpenClaw \u2014 install it, configure your skills, and set up your first personal AI employee running on your own machine.",
+          "url": "https://www.youtube.com/watch?v=mGcdxFPwBdU",
+          "linkLabel": "Watch on YouTube \u2192"
         }
       ]
     }
