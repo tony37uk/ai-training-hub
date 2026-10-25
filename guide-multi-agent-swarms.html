@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Agent Systems &amp; Swarms Explained | Tony's AI &amp; Cloud Training Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #f4f6fb; color: #1a1a2e; min-height: 100vh; line-height: 1.7; }
+
+    header { background: #fff; border-bottom: 1px solid #e8eaf0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(79,142,247,0.07); }
+    .nav-inner { max-width: 860px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
+    .nav-brand { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; color: #4f8ef7; text-decoration: none; }
+    .nav-back { font-size: 13px; font-weight: 700; color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
+    .nav-back:hover { color: #4f8ef7; }
+
+    .guide-hero { background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a259f7 100%); padding: 3rem 2rem 3.5rem; position: relative; overflow: hidden; }
+    .guide-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 36px 36px; }
+    .guide-hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
+    .guide-badge { display: inline-block; background: rgba(255,255,255,0.25); color: #fff; font-size: 12px; font-weight: 800; padding: 4px 14px; border-radius: 50px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+    .guide-hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; color: #fff; margin-bottom: 0.75rem; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .guide-meta { display: flex; flex-wrap: wrap; gap: 16px; color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; }
+    .guide-meta span { display: flex; align-items: center; gap: 5px; }
+
+    .guide-layout { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 240px; gap: 2.5rem; align-items: start; }
+    .guide-content { min-width: 0; }
+    .guide-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e8eaf0; }
+    .guide-content h2:first-child { margin-top: 0; }
+    .guide-content h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; color: #4c1d95; margin: 1.5rem 0 0.5rem; }
+    .guide-content p { font-size: 15px; color: #374151; margin-bottom: 1rem; }
+
+    .step { background: #fff; border: 1px solid #e8eaf0; border-radius: 16px; padding: 1.4rem 1.5rem; margin-bottom: 1.25rem; display: flex; gap: 1.1rem; align-items: flex-start; }
+    .step-num { min-width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #a259f7); color: #fff; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { flex: 1; min-width: 0; }
+    .step-body h3 { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.4rem; }
+    .step-body p { font-size: 14px; color: #4b5563; margin: 0 0 0.5rem; line-height: 1.6; }
+    .step-body p:last-child { margin-bottom: 0; }
+
+    .tip     { background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #3b0764; line-height: 1.6; }
+    .warning { background: #fff7ed; border-left: 4px solid #f7a525; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #7c3a00; line-height: 1.6; }
+    .danger  { background: #fff1f2; border-left: 4px solid #e11d48; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #881337; line-height: 1.6; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .compare-card { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 1rem 1.2rem; }
+    .compare-card h4 { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 0.5rem; }
+    .compare-card p { font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 13px; }
+    .data-table th { background: #f5f3ff; color: #4c1d95; font-weight: 700; padding: 8px 12px; text-align: left; border-bottom: 2px solid #ede9fe; }
+    .data-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #374151; vertical-align: top; }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .checklist { list-style: none; margin: 0.75rem 0 1rem; }
+    .checklist li { font-size: 14px; color: #374151; padding: 6px 0; display: flex; align-items: flex-start; gap: 9px; border-bottom: 1px dashed #e8eaf0; line-height: 1.5; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-circle { width: 20px; height: 20px; border-radius: 50%; background: #ede9fe; color: #7c3aed; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 800; margin-top: 2px; }
+
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .dos, .donts { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 1rem 1.2rem; }
+    .dos h4 { color: #1a7a42; font-size: 13px; font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 0.6rem; }
+    .donts h4 { color: #b91c1c; font-size: 13px; font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 0.6rem; }
+    .dos li, .donts li { font-size: 13px; color: #374151; margin-bottom: 6px; line-height: 1.5; }
+
+    .guide-sidebar { position: sticky; top: 78px; }
+    .sidebar-card { background: #fff; border: 1px solid #e8eaf0; border-radius: 16px; padding: 1.25rem; margin-bottom: 1rem; }
+    .sidebar-card h4 { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 6px; }
+    .toc-list a { font-size: 13px; color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color 0.15s; }
+    .toc-list a:hover { color: #7c3aed; }
+    .toc-dot { width: 6px; height: 6px; border-radius: 50%; background: #e8eaf0; flex-shrink: 0; }
+    .resource-link { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #7c3aed; text-decoration: none; padding: 6px 0; border-bottom: 1px solid #f0f0f0; transition: color 0.15s; }
+    .resource-link:last-child { border-bottom: none; }
+    .resource-link:hover { color: #4c1d95; }
+    .diff-bar { display: flex; gap: 5px; margin-top: 6px; }
+    .diff-dot { width: 28px; height: 8px; border-radius: 50px; }
+    .diff-filled { background: #7c3aed; }
+    .diff-empty  { background: #e8eaf0; }
+
+    footer { text-align: center; padding: 2rem; font-size: 13px; color: #9ca3af; border-top: 1px solid #e8eaf0; background: #fff; }
+    footer a { color: #4f8ef7; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 680px) {
+      .guide-layout { grid-template-columns: 1fr; padding: 1.5rem 1rem 3rem; }
+      .guide-sidebar { position: static; }
+      .guide-hero { padding: 2rem 1rem 2.5rem; }
+      .compare-grid, .dos-donts { grid-template-columns: 1fr; }
+    }
+  
+    /* ── additions for code + diagrams ── */
+    .guide-content code { background:#f5f3ff; color:#7c3aed; padding:2px 7px; border-radius:5px; font-size:13px; overflow-wrap:anywhere; }
+    pre.code { background:#1e1b2e; color:#e9e5ff; border-radius:12px; padding:1rem 1.1rem; margin:0.75rem 0 1rem; overflow-x:auto; font-size:12.5px; line-height:1.6; }
+    pre.code code { background:none; color:inherit; padding:0; font-size:inherit; }
+    .code-label { font-size:12px; font-weight:800; color:#6b7280; margin:0.75rem 0 -0.4rem; font-family:'Poppins',sans-serif; }
+    .diagram { background:#fff; border:1px solid #e8eaf0; border-radius:16px; padding:1rem; margin:0.75rem 0 1.25rem; }
+    .diagram svg { width:100%; height:auto; display:block; }
+    .diagram figcaption { font-size:12.5px; color:#6b7280; text-align:center; margin-top:0.5rem; }
+    .pattern-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 0 1.5rem; }
+    .pattern-meta div { background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:0.8rem 1rem; font-size:13px; color:#4b5563; line-height:1.5; }
+    .pattern-meta strong { display:block; font-family:'Poppins',sans-serif; font-size:12px; color:#4c1d95; margin-bottom:2px; }
+    .data-table-wrap { overflow-x:auto; }
+    .data-table code { overflow-wrap:normal; white-space:nowrap; }
+    .checklist li > span.li-text { flex:1; min-width:0; }
+    @media (max-width: 680px) { .pattern-meta { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">🚀 Tony's AI &amp; Cloud Hub</a>
+      <a href="index.html#guides" class="nav-back">← Back to guides</a>
+    </div>
+  </header>
+
+  <section class="guide-hero">
+    <div class="guide-hero-inner">
+      <div class="guide-badge">🐝 How-To Guide</div>
+      <h1>Multi-Agent Systems &amp; Swarms Explained</h1>
+      <div class="guide-meta">
+        <span>⏱️ 20 min read</span>
+        <span>🟡 Intermediate</span>
+        <span>🧠 Concepts, no coding</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-layout">
+    <article class="guide-content">
+
+      <p>One agent can do a lot. But some jobs are too big, too broad or too varied for a single agent working through them one step at a time. A <strong>multi-agent system</strong> splits the work across several specialised agents. When people talk about agent <strong>"swarms"</strong>, this is what they mean.</p>
+
+      <div class="tip">
+        <span>💡</span>
+        <span><strong>New to agents?</strong> Read <a href="guide-ai-agents.html">Getting Started with AI Agents</a> first. This guide builds on the Reason–Act–Observe loop explained there.</span>
+      </div>
+
+      <h2 id="what">What Is a Multi-Agent System?</h2>
+      <p>Instead of one agent doing everything, several agents each take a role, such as researcher, writer or reviewer. Each agent has its own instructions, its own tools and, importantly, its <strong>own context window</strong>, so it can focus on its piece without being distracted by everything else.</p>
+      <p>"Swarm" isn't a formal term. It became popular through <strong>OpenAI Swarm</strong>, an experimental teaching tool from 2024 built around agents handing work to each other. OpenAI retired it in 2025 and replaced it with the Agents SDK, but the name stuck as shorthand for "lots of agents working together".</p>
+
+      <div class="compare-grid">
+        <div class="compare-card" style="border-color:#ddeeff;">
+          <h4 style="color:#1a5fa8;">🤖 Single agent</h4>
+          <p>One context window, one set of tools, works step by step. Simpler, cheaper and easier to debug. The right choice for most tasks.</p>
+        </div>
+        <div class="compare-card" style="border-color:#ede9fe;">
+          <h4 style="color:#7c3aed;">🐝 Multi-agent</h4>
+          <p>Several focused agents, often working in parallel. Faster and more thorough on broad tasks, but uses many more tokens and needs coordination.</p>
+        </div>
+      </div>
+
+      <h2 id="why">Why Split the Work?</h2>
+      <ul class="checklist">
+        <li><span class="check-circle">→</span><span class="li-text"><strong>Parallel work</strong>: five research questions can be investigated at once instead of one after another.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>Focus</strong>: each agent's context only holds what it needs, so long tasks don't drown in detail.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>Specialisation</strong>: a reviewer agent with read-only tools and a strict checklist is more reliable than asking one agent to "also check your work".</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>Independent opinions</strong>: agents that didn't write something are better at spotting its problems.</span></li>
+      </ul>
+
+      <h2 id="patterns">The Four Main Patterns</h2>
+      <p>Almost every multi-agent system, whatever the framework, is built from four patterns. Learn these and the frameworks become much easier to understand.</p>
+
+      <h3>1. Orchestrator–worker</h3>
+      <figure class="diagram"><svg viewBox="0 0 640 250" role="img" aria-label="A lead agent sends tasks to three workers in parallel and combines their results" font-family="Nunito, sans-serif"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/></marker></defs><rect x="230" y="10" width="180" height="54" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><text x="320.0" y="34.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Lead agent</text><text x="320.0" y="51.0" text-anchor="middle" font-size="11.5" fill="#6b7280">plans &amp; combines</text><rect x="30" y="170" width="170" height="54" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="115.0" y="194.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Worker 1</text><text x="115.0" y="211.0" text-anchor="middle" font-size="11.5" fill="#6b7280">searches topic A</text><rect x="235" y="170" width="170" height="54" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="320.0" y="194.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Worker 2</text><text x="320.0" y="211.0" text-anchor="middle" font-size="11.5" fill="#6b7280">searches topic B</text><rect x="440" y="170" width="170" height="54" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="525.0" y="194.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Worker 3</text><text x="525.0" y="211.0" text-anchor="middle" font-size="11.5" fill="#6b7280">searches topic C</text><line x1="280" y1="64" x2="130" y2="168" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="320" y1="64" x2="320" y2="168" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="360" y1="64" x2="510" y2="168" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="150" y1="170" x2="290" y2="66" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)" stroke-dasharray="5 4"/><line x1="490" y1="170" x2="350" y2="66" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)" stroke-dasharray="5 4"/><text x="180" y="112" font-size="11" fill="#6b7280" text-anchor="middle">tasks</text><text x="470" y="112" font-size="11" fill="#6b7280" text-anchor="middle">results</text></svg><figcaption>A lead agent splits the job, workers run in parallel, the lead combines the results</figcaption></figure>
+      <p>A lead agent plans the work, hands focused pieces to worker agents, and combines what comes back. Workers don't talk to each other; everything goes through the lead.</p>
+      <p>This is how Anthropic built the Research feature in Claude: a lead agent plans the research and spawns subagents that each search in parallel with their own context, then brings their findings together.</p>
+      <div class="pattern-meta">
+        <div><strong>Good for</strong>Broad research, checking many files or links at once, any job that splits into independent pieces.</div>
+        <div><strong>IT example</strong>"Review these 40 Intune compliance policies": one worker per policy group, the lead writes a single summary.</div>
+      </div>
+
+      <h3>2. Handoff (the classic "swarm")</h3>
+      <figure class="diagram"><svg viewBox="0 0 640 250" role="img" aria-label="A triage agent hands the conversation to one specialist agent" font-family="Nunito, sans-serif"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/></marker></defs><rect x="10" y="98" width="130" height="54" rx="12" fill="#fff" stroke="#7c3aed" stroke-width="1.5"/><text x="75.0" y="122.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Request</text><text x="75.0" y="139.0" text-anchor="middle" font-size="11.5" fill="#6b7280">from a user</text><rect x="200" y="98" width="150" height="54" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><text x="275.0" y="122.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Triage agent</text><text x="275.0" y="139.0" text-anchor="middle" font-size="11.5" fill="#6b7280">decides who's best</text><rect x="430" y="10" width="190" height="50" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="525.0" y="40.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Billing agent</text><rect x="430" y="100" width="190" height="50" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><text x="525.0" y="130.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Tech support agent</text><rect x="430" y="190" width="190" height="50" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="525.0" y="220.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Accounts agent</text><line x1="140" y1="125" x2="198" y2="125" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="350" y1="112" x2="428" y2="40" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)" stroke-dasharray="5 4"/><line x1="350" y1="125" x2="428" y2="125" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><text x="390" y="118" text-anchor="middle" font-size="11" fill="#6b7280">handoff</text><line x1="350" y1="138" x2="428" y2="210" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)" stroke-dasharray="5 4"/></svg><figcaption>The conversation is passed to whichever specialist fits, like a service desk routing a call</figcaption></figure>
+      <p>A triage agent works out what's needed and passes the whole conversation to the right specialist, which can hand it on again. Only one agent is in charge at any moment. In the OpenAI Agents SDK, a handoff appears to the model as a tool, for example <code>transfer_to_refund_agent</code>.</p>
+      <div class="pattern-meta">
+        <div><strong>Good for</strong>Conversations where the right expert depends on the question: helpdesks, customer service, internal Q&amp;A bots.</div>
+        <div><strong>IT example</strong>A service desk bot that routes "my laptop won't enrol" to a device agent and "I need a licence" to a licensing agent.</div>
+      </div>
+
+      <h3>3. Sequential pipeline</h3>
+      <figure class="diagram"><svg viewBox="0 0 640 135" role="img" aria-label="Work passes from researcher to writer to reviewer, which can send it back" font-family="Nunito, sans-serif"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/></marker></defs><rect x="5" y="55" width="140" height="54" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="75.0" y="79.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Researcher</text><text x="75.0" y="96.0" text-anchor="middle" font-size="11.5" fill="#6b7280">gathers facts</text><rect x="170" y="55" width="140" height="54" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="240.0" y="79.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Writer</text><text x="240.0" y="96.0" text-anchor="middle" font-size="11.5" fill="#6b7280">drafts content</text><rect x="335" y="55" width="140" height="54" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="405.0" y="79.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Reviewer</text><text x="405.0" y="96.0" text-anchor="middle" font-size="11.5" fill="#6b7280">checks quality</text><rect x="500" y="55" width="135" height="54" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><text x="567.5" y="87.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Result</text><line x1="145" y1="82" x2="168" y2="82" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="310" y1="82" x2="333" y2="82" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="475" y1="82" x2="498" y2="82" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><path d="M405 55 C405 28, 240 28, 240 53" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="322" y="18" font-size="11" fill="#6b7280" text-anchor="middle">send back for changes</text></svg><figcaption>Each agent does one stage and passes its output on; a reviewer can send work back</figcaption></figure>
+      <p>Agents work in a fixed order, like an assembly line. Each one takes the previous agent's output, does its stage, and passes it on. Adding a reviewer at the end that can send work back gives you a simple quality loop.</p>
+      <div class="pattern-meta">
+        <div><strong>Good for</strong>Repeatable processes with clear stages: content, reports, change requests, documentation.</div>
+        <div><strong>IT example</strong>Draft a change request → assess risk → check against the CAB template → produce the final record.</div>
+      </div>
+
+      <h3>4. Group chat / team debate</h3>
+      <figure class="diagram"><svg viewBox="0 0 640 260" role="img" aria-label="Peer agents share a task list and message each other directly" font-family="Nunito, sans-serif"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a78bfa"/></marker></defs><rect x="235" y="100" width="170" height="56" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4"/><text x="320.0" y="125.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Shared task list</text><text x="320.0" y="142.0" text-anchor="middle" font-size="11.5" fill="#6b7280">+ messages</text><rect x="235" y="5" width="170" height="50" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="320.0" y="35.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Security reviewer</text><rect x="20" y="200" width="170" height="50" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="105.0" y="230.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Performance reviewer</text><rect x="450" y="200" width="170" height="50" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/><text x="535.0" y="230.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Test reviewer</text><line x1="320" y1="57" x2="320" y2="98" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="150" y1="198" x2="260" y2="158" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="490" y1="198" x2="380" y2="158" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><line x1="195" y1="225" x2="446" y2="225" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/><text x="320" y="218" text-anchor="middle" font-size="11" fill="#6b7280">challenge each other's findings</text><line x1="446" y1="233" x2="195" y2="233" stroke="#a78bfa" stroke-width="2" marker-end="url(#ah)"/></svg><figcaption>Peers share a task list and message each other, so they can challenge one another's work</figcaption></figure>
+      <p>Agents work as peers. They share a task list, message each other directly and challenge each other's conclusions. Claude Code's experimental <strong>agent teams</strong> feature works this way: teammates claim tasks from a shared list and talk to each other without going through the lead.</p>
+      <div class="pattern-meta">
+        <div><strong>Good for</strong>Reviews from several angles, debugging with competing theories, decisions that benefit from debate.</div>
+        <div><strong>IT example</strong>Three agents review a deployment plan: one for security, one for user impact, one for rollback risk.</div>
+      </div>
+
+      <div class="tip">
+        <span>🧩</span>
+        <span><strong>Patterns combine.</strong> A common design is orchestrator–worker for gathering information in parallel, followed by a short pipeline to write and review the result. The hands-on guide uses exactly this combination.</span>
+      </div>
+
+      <h2 id="when">When to Use One (and When Not To)</h2>
+      <p>Multi-agent systems are not free. Every agent has its own context window, so token use rises with each agent you add. Anthropic found its multi-agent research system used far more tokens than a normal chat, which is only worth it when the task is valuable and splits up well.</p>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Use multi-agent when…</th><th>Stay with one agent when…</th></tr></thead>
+        <tbody>
+          <tr><td>The work splits into independent pieces</td><td>Each step depends on the one before</td></tr>
+          <tr><td>The task is broad: lots to search, read or check</td><td>The task is small or routine</td></tr>
+          <tr><td>You want an independent review or several viewpoints</td><td>Several agents would need to edit the same file</td></tr>
+          <tr><td>The result is worth the extra cost</td><td>Cost or speed matters more than thoroughness</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="design">Designing a Good Swarm</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Give every agent a clear, narrow job</h3>
+          <p>Vague roles cause overlap and gaps. Spell out what each agent does, what it returns and where its job ends. Anthropic's top lesson was giving subagents detailed task boundaries.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Pass on the context they need</h3>
+          <p>Agents don't see each other's conversations. Whatever a worker needs to know (the goal, constraints, file names) must be in the instructions it's given.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Start small</h3>
+          <p>Three to five agents is plenty for most jobs. More agents means more cost and more coordination, and the gains drop off quickly.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>One owner per file</h3>
+          <p>Two agents editing the same file will overwrite each other. Split work so each agent owns different files, or keep editing with one agent and let the others only read.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>Define "done" and a stop condition</h3>
+          <p>Say what a finished result looks like, and limit how long or how many steps agents can take, so a swarm can't loop forever.</p>
+        </div>
+      </div>
+
+      <h2 id="safety">Keeping a Swarm Safe</h2>
+      <ul class="checklist">
+        <li><span class="check-circle">🔒</span><span class="li-text"><strong>Least privilege per agent</strong>: a researcher doesn't need to edit files, and a reviewer should be read-only. Give each agent only the tools its job needs.</span></li>
+        <li><span class="check-circle">📨</span><span class="li-text"><strong>Treat agent-to-agent messages as untrusted</strong>: if one agent reads a malicious web page, a hidden instruction can be passed along to the others. Never let one agent "approve" an action on your behalf.</span></li>
+        <li><span class="check-circle">👤</span><span class="li-text"><strong>Keep a human checkpoint</strong> before anything is sent, published, deleted or deployed.</span></li>
+        <li><span class="check-circle">📋</span><span class="li-text"><strong>Watch the logs</strong>: more agents means more actions to review. Check what each one actually did, not just the final summary.</span></li>
+      </ul>
+      <div class="danger">
+        <span>🛡️</span>
+        <span><strong>Prompt injection spreads.</strong> In a single agent, a poisoned web page affects one agent. In a swarm, the affected agent's output becomes another agent's input. Keep the agents that read untrusted content away from tools that can change things.</span>
+      </div>
+
+      <h2 id="next">Where to Go Next</h2>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Next step</th><th>What you'll get</th></tr></thead>
+        <tbody>
+          <tr><td><a href="guide-claude-code-swarm.html"><strong>Build a Swarm with Claude Code Subagents</strong></a></td><td>Hands-on: create four specialist agents that maintain this hub</td></tr>
+          <tr><td><a href="guide-agent-frameworks.html"><strong>Choosing an Agent Framework</strong></a></td><td>Which tool to use when you build your own multi-agent system</td></tr>
+          <tr><td><a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener noreferrer"><strong>How Anthropic built its multi-agent research system</strong></a></td><td>A real-world orchestrator–worker system and the lessons learned</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="dosdonts">Quick Reference: Do's and Don'ts</h2>
+      <div class="dos-donts">
+        <div class="dos">
+          <h4>✅ Do this</h4>
+          <ul>
+            <li>Start with one agent and add more only when needed</li>
+            <li>Give each agent a narrow role and clear output</li>
+            <li>Run independent work in parallel</li>
+            <li>Make reviewers read-only</li>
+            <li>Keep a human checkpoint before real changes</li>
+          </ul>
+        </div>
+        <div class="donts">
+          <h4>❌ Avoid this</h4>
+          <ul>
+            <li>Ten agents where three would do</li>
+            <li>Several agents editing the same file</li>
+            <li>Giving every agent every tool</li>
+            <li>Trusting instructions passed between agents</li>
+            <li>Letting a swarm run with no stop condition</li>
+          </ul>
+        </div>
+      </div>
+
+    </article>
+
+    <aside class="guide-sidebar">
+      <div class="sidebar-card">
+        <h4>Contents</h4>
+        <ul class="toc-list">
+          <li><a href="#what"><span class="toc-dot"></span>What is a multi-agent system?</a></li>
+          <li><a href="#why"><span class="toc-dot"></span>Why split the work?</a></li>
+          <li><a href="#patterns"><span class="toc-dot"></span>The four main patterns</a></li>
+          <li><a href="#when"><span class="toc-dot"></span>When to use one</a></li>
+          <li><a href="#design"><span class="toc-dot"></span>Designing a good swarm</a></li>
+          <li><a href="#safety"><span class="toc-dot"></span>Keeping a swarm safe</a></li>
+          <li><a href="#next"><span class="toc-dot"></span>Where to go next</a></li>
+          <li><a href="#dosdonts"><span class="toc-dot"></span>Do's and don'ts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Difficulty</h4>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Intermediate</p>
+        <div class="diff-bar">
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-empty"></div>
+          <div class="diff-dot diff-empty"></div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Useful Links</h4>
+        <a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener noreferrer" class="resource-link">🔬 Anthropic: multi-agent research</a>
+        <a href="https://code.claude.com/docs/en/agent-teams" target="_blank" rel="noopener noreferrer" class="resource-link">🤝 Claude Code agent teams</a>
+        <a href="https://openai.github.io/openai-agents-python/handoffs/" target="_blank" rel="noopener noreferrer" class="resource-link">🔀 OpenAI Agents SDK handoffs</a>
+        <a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank" rel="noopener noreferrer" class="resource-link">🪟 Microsoft Agent Framework</a>
+      </div>
+
+      <div class="sidebar-card" style="background:linear-gradient(135deg,#f5f3ff,#fdf4ff);border-color:#ddd6fe;">
+        <h4 style="color:#4c1d95;">Next step</h4>
+        <p style="font-size:13px;color:#374151;line-height:1.6;">Put the patterns into practice with <a href="guide-claude-code-swarm.html" style="color:#7c3aed;font-weight:700;">Build a Swarm with Claude Code Subagents</a>.</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Part of <a href="index.html">Tony's AI &amp; Cloud Training Hub</a> &mdash; built with ❤️ and Claude</p>
+  </footer>
+</body>
+</html>

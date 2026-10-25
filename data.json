@@ -125,6 +125,46 @@
           "url": "https://huggingface.co",
           "subPageUrl": "resources-huggingface.html",
           "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Agents",
+          "tagClass": "tag-purple",
+          "title": "Anthropic: Multi-Agent Research System",
+          "description": "How Anthropic built Claude's Research feature with a lead agent and parallel subagents \u2014 a real-world agent swarm.",
+          "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+          "linkLabel": "Read \u2192"
+        },
+        {
+          "tag": "Free course",
+          "tagClass": "tag-green",
+          "title": "Hugging Face Agents Course",
+          "description": "Free AI agents course with certificates, covering smolagents, LlamaIndex and LangGraph. About 3\u20134 hours a week.",
+          "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+          "linkLabel": "Start course \u2192"
+        },
+        {
+          "tag": "Microsoft",
+          "tagClass": "tag-blue",
+          "title": "Microsoft Agent Framework",
+          "description": "Microsoft's framework for AI agents and multi-agent workflows in .NET and Python, successor to Semantic Kernel and AutoGen.",
+          "url": "https://learn.microsoft.com/en-us/agent-framework/overview/",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Course",
+          "tagClass": "tag-blue",
+          "title": "IBM: Agentic AI with LangGraph, CrewAI & AutoGen",
+          "description": "Coursera course on building AI agents and multi-agent systems with LangGraph, CrewAI, AutoGen and BeeAI side by side.",
+          "url": "https://coursera.org/share/a06e4ae58ee07e980be718acfb1511f7",
+          "linkLabel": "Visit \u2192"
+        },
+        {
+          "tag": "Agents",
+          "tagClass": "tag-purple",
+          "title": "From OpenAI Swarm to AgentKit",
+          "description": "Why OpenAI retired its Swarm agents framework and what replaced it: the Agents SDK and AgentKit.",
+          "url": "https://betterstack.com/community/guides/ai/openai-swarm-to-agentkit/",
+          "linkLabel": "Read \u2192"
         }
       ]
     },
@@ -182,6 +222,30 @@
           "title": "Getting Started with Vibe Coding",
           "description": "Build real software using plain English and AI tools \u2014 no coding experience required.",
           "url": "guide-vibe-coding.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "Agents",
+          "tagClass": "tag-orange",
+          "title": "Multi-Agent Systems & Swarms Explained",
+          "description": "The four patterns behind AI agent swarms, when multi-agent is worth it, and how to keep it safe.",
+          "url": "guide-multi-agent-swarms.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "Hands-on",
+          "tagClass": "tag-orange",
+          "title": "Build a Swarm with Claude Code Subagents",
+          "description": "Create four specialist Claude Code agents that check, research, write and review content for this hub.",
+          "url": "guide-claude-code-swarm.html",
+          "linkLabel": "Read guide \u2192"
+        },
+        {
+          "tag": "Agents",
+          "tagClass": "tag-orange",
+          "title": "Choosing an Agent Framework",
+          "description": "Microsoft Agent Framework, Claude Agent SDK, OpenAI Agents SDK, LangGraph and CrewAI compared for building agents.",
+          "url": "guide-agent-frameworks.html",
           "linkLabel": "Read guide \u2192"
         }
       ]

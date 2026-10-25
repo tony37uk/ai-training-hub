@@ -13,8 +13,8 @@ Sister site to [Tony's AI & Cloud Training Hub](https://github.com/tony37uk/trai
 | Section | What you'll find |
 |---|---|
 | 🤖 **AI Resources** | ChatGPT, Claude, Copilot, Gemini, Perplexity, DeepSeek, Qwen, Grok and Meta AI |
-| 🔗 **Training Links** | Anthropic Academy, OpenAI Academy, Google Gemini and Hugging Face, each with its own resource page |
-| 📖 **How-To Guides** | GitHub Pages, writing better prompts, Claude Code, AI agents, OpenClaw and vibe coding |
+| 🔗 **Training Links** | Anthropic Academy, OpenAI Academy, Google Gemini and Hugging Face (each with its own resource page), plus agent and multi-agent courses and articles |
+| 📖 **How-To Guides** | GitHub Pages, writing better prompts, Claude Code, AI agents, multi-agent systems and swarms, building a swarm with Claude Code subagents, choosing an agent framework, OpenClaw and vibe coding |
 | 🎬 **Training Videos** | Intro to AI for IT pros, AI-assisted coding, LLMs, Ollama, OpenClaw, plus an interactive Power BI for Beginners walkthrough |
 | 💬 **Feedback** | A form for visitors to suggest resources or report broken links |
 

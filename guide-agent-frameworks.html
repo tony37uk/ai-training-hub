@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choosing an Agent Framework | Tony's AI &amp; Cloud Training Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #f4f6fb; color: #1a1a2e; min-height: 100vh; line-height: 1.7; }
+
+    header { background: #fff; border-bottom: 1px solid #e8eaf0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(79,142,247,0.07); }
+    .nav-inner { max-width: 860px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
+    .nav-brand { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; color: #4f8ef7; text-decoration: none; }
+    .nav-back { font-size: 13px; font-weight: 700; color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
+    .nav-back:hover { color: #4f8ef7; }
+
+    .guide-hero { background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a259f7 100%); padding: 3rem 2rem 3.5rem; position: relative; overflow: hidden; }
+    .guide-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 36px 36px; }
+    .guide-hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
+    .guide-badge { display: inline-block; background: rgba(255,255,255,0.25); color: #fff; font-size: 12px; font-weight: 800; padding: 4px 14px; border-radius: 50px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+    .guide-hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; color: #fff; margin-bottom: 0.75rem; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .guide-meta { display: flex; flex-wrap: wrap; gap: 16px; color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; }
+    .guide-meta span { display: flex; align-items: center; gap: 5px; }
+
+    .guide-layout { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 240px; gap: 2.5rem; align-items: start; }
+    .guide-content { min-width: 0; }
+    .guide-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e8eaf0; }
+    .guide-content h2:first-child { margin-top: 0; }
+    .guide-content h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; color: #4c1d95; margin: 1.5rem 0 0.5rem; }
+    .guide-content p { font-size: 15px; color: #374151; margin-bottom: 1rem; }
+
+    .step { background: #fff; border: 1px solid #e8eaf0; border-radius: 16px; padding: 1.4rem 1.5rem; margin-bottom: 1.25rem; display: flex; gap: 1.1rem; align-items: flex-start; }
+    .step-num { min-width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #a259f7); color: #fff; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { flex: 1; min-width: 0; }
+    .step-body h3 { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.4rem; }
+    .step-body p { font-size: 14px; color: #4b5563; margin: 0 0 0.5rem; line-height: 1.6; }
+    .step-body p:last-child { margin-bottom: 0; }
+
+    .tip     { background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #3b0764; line-height: 1.6; }
+    .warning { background: #fff7ed; border-left: 4px solid #f7a525; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #7c3a00; line-height: 1.6; }
+    .danger  { background: #fff1f2; border-left: 4px solid #e11d48; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #881337; line-height: 1.6; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .compare-card { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 1rem 1.2rem; }
+    .compare-card h4 { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 0.5rem; }
+    .compare-card p { font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 13px; }
+    .data-table th { background: #f5f3ff; color: #4c1d95; font-weight: 700; padding: 8px 12px; text-align: left; border-bottom: 2px solid #ede9fe; }
+    .data-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #374151; vertical-align: top; }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .checklist { list-style: none; margin: 0.75rem 0 1rem; }
+    .checklist li { font-size: 14px; color: #374151; padding: 6px 0; display: flex; align-items: flex-start; gap: 9px; border-bottom: 1px dashed #e8eaf0; line-height: 1.5; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-circle { width: 20px; height: 20px; border-radius: 50%; background: #ede9fe; color: #7c3aed; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 800; margin-top: 2px; }
+
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .dos, .donts { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 1rem 1.2rem; }
+    .dos h4 { color: #1a7a42; font-size: 13px; font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 0.6rem; }
+    .donts h4 { color: #b91c1c; font-size: 13px; font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 0.6rem; }
+    .dos li, .donts li { font-size: 13px; color: #374151; margin-bottom: 6px; line-height: 1.5; }
+
+    .guide-sidebar { position: sticky; top: 78px; }
+    .sidebar-card { background: #fff; border: 1px solid #e8eaf0; border-radius: 16px; padding: 1.25rem; margin-bottom: 1rem; }
+    .sidebar-card h4 { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 6px; }
+    .toc-list a { font-size: 13px; color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color 0.15s; }
+    .toc-list a:hover { color: #7c3aed; }
+    .toc-dot { width: 6px; height: 6px; border-radius: 50%; background: #e8eaf0; flex-shrink: 0; }
+    .resource-link { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #7c3aed; text-decoration: none; padding: 6px 0; border-bottom: 1px solid #f0f0f0; transition: color 0.15s; }
+    .resource-link:last-child { border-bottom: none; }
+    .resource-link:hover { color: #4c1d95; }
+    .diff-bar { display: flex; gap: 5px; margin-top: 6px; }
+    .diff-dot { width: 28px; height: 8px; border-radius: 50px; }
+    .diff-filled { background: #7c3aed; }
+    .diff-empty  { background: #e8eaf0; }
+
+    footer { text-align: center; padding: 2rem; font-size: 13px; color: #9ca3af; border-top: 1px solid #e8eaf0; background: #fff; }
+    footer a { color: #4f8ef7; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 680px) {
+      .guide-layout { grid-template-columns: 1fr; padding: 1.5rem 1rem 3rem; }
+      .guide-sidebar { position: static; }
+      .guide-hero { padding: 2rem 1rem 2.5rem; }
+      .compare-grid, .dos-donts { grid-template-columns: 1fr; }
+    }
+  
+    /* ── additions for code + diagrams ── */
+    .guide-content code { background:#f5f3ff; color:#7c3aed; padding:2px 7px; border-radius:5px; font-size:13px; overflow-wrap:anywhere; }
+    pre.code { background:#1e1b2e; color:#e9e5ff; border-radius:12px; padding:1rem 1.1rem; margin:0.75rem 0 1rem; overflow-x:auto; font-size:12.5px; line-height:1.6; }
+    pre.code code { background:none; color:inherit; padding:0; font-size:inherit; }
+    .code-label { font-size:12px; font-weight:800; color:#6b7280; margin:0.75rem 0 -0.4rem; font-family:'Poppins',sans-serif; }
+    .diagram { background:#fff; border:1px solid #e8eaf0; border-radius:16px; padding:1rem; margin:0.75rem 0 1.25rem; }
+    .diagram svg { width:100%; height:auto; display:block; }
+    .diagram figcaption { font-size:12.5px; color:#6b7280; text-align:center; margin-top:0.5rem; }
+    .pattern-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 0 1.5rem; }
+    .pattern-meta div { background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:0.8rem 1rem; font-size:13px; color:#4b5563; line-height:1.5; }
+    .pattern-meta strong { display:block; font-family:'Poppins',sans-serif; font-size:12px; color:#4c1d95; margin-bottom:2px; }
+    .data-table-wrap { overflow-x:auto; }
+    .data-table code { overflow-wrap:normal; white-space:nowrap; }
+    .checklist li > span.li-text { flex:1; min-width:0; }
+    @media (max-width: 680px) { .pattern-meta { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">🚀 Tony's AI &amp; Cloud Hub</a>
+      <a href="index.html#guides" class="nav-back">← Back to guides</a>
+    </div>
+  </header>
+
+  <section class="guide-hero">
+    <div class="guide-hero-inner">
+      <div class="guide-badge">🧭 How-To Guide</div>
+      <h1>Choosing an Agent Framework</h1>
+      <div class="guide-meta">
+        <span>⏱️ 15 min read</span>
+        <span>🟡 Intermediate</span>
+        <span>🧠 Comparison, no coding</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-layout">
+    <article class="guide-content">
+
+      <p>Once you understand how multi-agent systems work, the next question is: <em>what do I build one with?</em> There are a lot of frameworks, they all use different names for similar ideas, and the landscape changes fast. This guide compares the main options in plain English and helps you pick one.</p>
+
+      <div class="tip">
+        <span>💡</span>
+        <span><strong>You might not need a framework.</strong> If your swarm helps <em>you</em> with tasks on your own computer, Claude Code's subagents already do the job with no code at all. See <a href="guide-claude-code-swarm.html">Build a Swarm with Claude Code Subagents</a>. Frameworks matter when you're building an agent into an app or service other people will use.</span>
+      </div>
+
+      <h2 id="quick">Quick Decision Guide</h2>
+      <ul class="checklist">
+        <li><span class="check-circle">→</span><span class="li-text"><strong>Your organisation runs on Azure / Microsoft 365, or uses .NET</strong>: start with <strong>Microsoft Agent Framework</strong>.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>You want an agent that can work with files and run commands, like Claude Code, inside your own app</strong>: use the <strong>Claude Agent SDK</strong>.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>You're building on OpenAI models and want simple handoffs between agents</strong>: use the <strong>OpenAI Agents SDK</strong>.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>You need precise control over every step, loops, and pausing for human approval</strong>: use <strong>LangGraph</strong>.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text"><strong>You want to describe a team of roles quickly and see it work</strong>: try <strong>CrewAI</strong>.</span></li>
+      </ul>
+
+      <h2 id="compare">The Main Frameworks Compared</h2>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Framework</th><th>Made by</th><th>Languages</th><th>How agents work together</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Microsoft Agent Framework</strong></td><td>Microsoft</td><td>.NET, Python (Go in preview)</td><td>Agents for open-ended tasks, plus <em>workflows</em> that connect agents in a set order. Supports sequential, concurrent, handoff and group-chat orchestration</td><td>Microsoft shops; teams that used Semantic Kernel or AutoGen</td></tr>
+          <tr><td><strong>Claude Agent SDK</strong></td><td>Anthropic</td><td>Python, TypeScript</td><td>Subagents, with the same tools, agent loop and permissions that power Claude Code</td><td>Agents that read and edit files, run commands and use MCP tools</td></tr>
+          <tr><td><strong>OpenAI Agents SDK</strong></td><td>OpenAI</td><td>Python, TypeScript</td><td>Handoffs: one agent passes the conversation to another. Also guardrails and tracing</td><td>Routing conversations between specialist agents</td></tr>
+          <tr><td><strong>LangGraph</strong></td><td>LangChain</td><td>Python, TypeScript</td><td>A graph: steps are boxes, arrows decide what runs next, with shared state. Supervisor and swarm styles available</td><td>Complex, long-running workflows with checkpoints and human approval steps</td></tr>
+          <tr><td><strong>CrewAI</strong></td><td>CrewAI</td><td>Python</td><td><em>Crews</em> of role-based agents, controlled by <em>Flows</em> that manage state and the order of work</td><td>Quickly modelling a team of roles: researcher, analyst, writer</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="names">Same Idea, Different Names</h2>
+      <p>Most of the confusion comes from vocabulary. Underneath, the frameworks use the same patterns from <a href="guide-multi-agent-swarms.html">Multi-Agent Systems &amp; Swarms Explained</a>:</p>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Pattern</th><th>What frameworks call it</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Orchestrator–worker</strong></td><td>Subagents (Claude) · Supervisor (LangGraph) · Concurrent orchestration (Microsoft)</td></tr>
+          <tr><td><strong>Handoff</strong></td><td>Handoffs (OpenAI) · Swarm (LangGraph) · Handoff orchestration (Microsoft)</td></tr>
+          <tr><td><strong>Pipeline</strong></td><td>Sequential orchestration (Microsoft) · Flows (CrewAI) · Edges in a graph (LangGraph)</td></tr>
+          <tr><td><strong>Group chat / team</strong></td><td>Group chat (Microsoft) · Crew (CrewAI) · Agent teams (Claude Code)</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="details">A Closer Look</h2>
+
+      <h3>🪟 Microsoft Agent Framework</h3>
+      <p>Microsoft's open-source framework for agents and multi-agent workflows. It's the direct successor to <strong>Semantic Kernel</strong> and <strong>AutoGen</strong>, built by the same teams, combining Semantic Kernel's enterprise features with AutoGen's multi-agent ideas. It separates <em>agents</em> (open-ended, decide their own steps) from <em>workflows</em> (a defined process with an explicit order). For someone working in EUC and Azure, this is the most natural fit for production work.</p>
+
+      <h3>🟣 Claude Agent SDK</h3>
+      <p>Lets you build Claude Code's agent into your own Python or TypeScript program: the same built-in tools, agent loop, subagents, hooks, permissions and MCP connections. If you've already built a swarm with Claude Code subagents, the ideas carry straight over. It's billed through a Claude API key.</p>
+
+      <h3>🟢 OpenAI Agents SDK</h3>
+      <p>OpenAI's lightweight framework, built around agents, handoffs, guardrails and tracing. A handoff shows up to the model as a tool, such as <code>transfer_to_refund_agent</code>, so routing between specialists is very simple to set up.</p>
+
+      <h3>🔗 LangGraph</h3>
+      <p>Models a workflow as a graph: each step is a node, arrows decide what runs next, and a shared state object carries information between steps. It has checkpoints for saving progress and can pause to ask a human. More to learn, but the most control.</p>
+
+      <h3>👥 CrewAI</h3>
+      <p>Built around the idea of a crew: you describe agents by role and goal, give them tasks, and let them collaborate. <em>Flows</em> sit on top to control state and order. Often the fastest way to get a multi-agent prototype running.</p>
+
+      <h2 id="swarm">A Note on OpenAI Swarm</h2>
+      <div class="warning">
+        <span>⚠️</span>
+        <span><strong>Many tutorials still use OpenAI Swarm, and you shouldn't build on it.</strong> Swarm was an experimental teaching tool released in 2024. OpenAI shut it down in March 2025 because it lacked memory, tracing and safety guardrails, and pointed developers to the <strong>OpenAI Agents SDK</strong> instead. Swarm tutorials are still useful for understanding handoffs; just use the Agents SDK for anything real.</span>
+      </div>
+
+      <h2 id="questions">Questions to Ask Before You Choose</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>What language does your team use?</h3>
+          <p>.NET points to Microsoft Agent Framework. Python and TypeScript open up every option.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Which AI models and cloud are you committed to?</h3>
+          <p>Vendor frameworks work best with their own models and platforms. LangGraph and CrewAI are model-neutral.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Do you need approvals and audit trails?</h3>
+          <p>For anything that changes real systems, look for built-in human-approval steps, tracing and logging. These matter more than clever orchestration.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Who will maintain it?</h3>
+          <p>A framework your team already knows beats a better one nobody can support. Check documentation quality and how actively it's updated.</p>
+        </div>
+      </div>
+
+      <h2 id="pathway">Suggested Learning Path</h2>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Stage</th><th>Do this</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Learn the patterns</strong></td><td>Read <a href="guide-multi-agent-swarms.html">Swarms Explained</a> and Anthropic's <a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener noreferrer">multi-agent research system</a> write-up</td></tr>
+          <tr><td><strong>2. Try them without code</strong></td><td>Complete <a href="guide-claude-code-swarm.html">Build a Swarm with Claude Code Subagents</a></td></tr>
+          <tr><td><strong>3. Learn a framework</strong></td><td>Take the free <a href="https://huggingface.co/learn/agents-course/unit0/introduction" target="_blank" rel="noopener noreferrer">Hugging Face Agents Course</a> (covers LangGraph), or follow Microsoft's <a href="https://learn.microsoft.com/en-us/agent-framework/get-started/" target="_blank" rel="noopener noreferrer">Agent Framework getting-started guide</a></td></tr>
+          <tr><td><strong>4. Compare frameworks</strong></td><td>IBM's <a href="https://coursera.org/share/a06e4ae58ee07e980be718acfb1511f7" target="_blank" rel="noopener noreferrer">Agentic AI with LangGraph, CrewAI, AutoGen and BeeAI</a> course builds the same ideas in several frameworks</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="dosdonts">Quick Reference: Do's and Don'ts</h2>
+      <div class="dos-donts">
+        <div class="dos">
+          <h4>✅ Do this</h4>
+          <ul>
+            <li>Learn the patterns before the framework</li>
+            <li>Pick what fits your language and cloud</li>
+            <li>Prototype small before committing</li>
+            <li>Check the docs are current (this area moves fast)</li>
+            <li>Insist on logging and human approval steps</li>
+          </ul>
+        </div>
+        <div class="donts">
+          <h4>❌ Avoid this</h4>
+          <ul>
+            <li>Building on OpenAI Swarm</li>
+            <li>Choosing on hype or GitHub stars alone</li>
+            <li>Mixing several frameworks in one project</li>
+            <li>Using a framework where Claude Code would do</li>
+            <li>Following tutorials more than a year old without checking</li>
+          </ul>
+        </div>
+      </div>
+
+    </article>
+
+    <aside class="guide-sidebar">
+      <div class="sidebar-card">
+        <h4>Contents</h4>
+        <ul class="toc-list">
+          <li><a href="#quick"><span class="toc-dot"></span>Quick decision guide</a></li>
+          <li><a href="#compare"><span class="toc-dot"></span>Frameworks compared</a></li>
+          <li><a href="#names"><span class="toc-dot"></span>Same idea, different names</a></li>
+          <li><a href="#details"><span class="toc-dot"></span>A closer look</a></li>
+          <li><a href="#swarm"><span class="toc-dot"></span>A note on OpenAI Swarm</a></li>
+          <li><a href="#questions"><span class="toc-dot"></span>Questions to ask</a></li>
+          <li><a href="#pathway"><span class="toc-dot"></span>Learning path</a></li>
+          <li><a href="#dosdonts"><span class="toc-dot"></span>Do's and don'ts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Difficulty</h4>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Intermediate</p>
+        <div class="diff-bar">
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-empty"></div>
+          <div class="diff-dot diff-empty"></div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Useful Links</h4>
+        <a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank" rel="noopener noreferrer" class="resource-link">🪟 Microsoft Agent Framework</a>
+        <a href="https://code.claude.com/docs/en/agent-sdk/overview" target="_blank" rel="noopener noreferrer" class="resource-link">🟣 Claude Agent SDK</a>
+        <a href="https://openai.github.io/openai-agents-python/" target="_blank" rel="noopener noreferrer" class="resource-link">🟢 OpenAI Agents SDK</a>
+        <a href="https://docs.langchain.com/oss/python/langgraph/graph-api" target="_blank" rel="noopener noreferrer" class="resource-link">🔗 LangGraph</a>
+        <a href="https://docs.crewai.com/en/introduction" target="_blank" rel="noopener noreferrer" class="resource-link">👥 CrewAI</a>
+      </div>
+
+      <div class="sidebar-card" style="background:linear-gradient(135deg,#f5f3ff,#fdf4ff);border-color:#ddd6fe;">
+        <h4 style="color:#4c1d95;">Next step</h4>
+        <p style="font-size:13px;color:#374151;line-height:1.6;">New to multi-agent ideas? Start with <a href="guide-multi-agent-swarms.html" style="color:#7c3aed;font-weight:700;">Multi-Agent Systems &amp; Swarms Explained</a>.</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Part of <a href="index.html">Tony's AI &amp; Cloud Training Hub</a> &mdash; built with ❤️ and Claude</p>
+  </footer>
+</body>
+</html>

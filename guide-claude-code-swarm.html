@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build a Swarm with Claude Code Subagents | Tony's AI &amp; Cloud Training Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #f4f6fb; color: #1a1a2e; min-height: 100vh; line-height: 1.7; }
+
+    header { background: #fff; border-bottom: 1px solid #e8eaf0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(79,142,247,0.07); }
+    .nav-inner { max-width: 860px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
+    .nav-brand { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; color: #4f8ef7; text-decoration: none; }
+    .nav-back { font-size: 13px; font-weight: 700; color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
+    .nav-back:hover { color: #4f8ef7; }
+
+    .guide-hero { background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a259f7 100%); padding: 3rem 2rem 3.5rem; position: relative; overflow: hidden; }
+    .guide-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 36px 36px; }
+    .guide-hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
+    .guide-badge { display: inline-block; background: rgba(255,255,255,0.25); color: #fff; font-size: 12px; font-weight: 800; padding: 4px 14px; border-radius: 50px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+    .guide-hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; color: #fff; margin-bottom: 0.75rem; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .guide-meta { display: flex; flex-wrap: wrap; gap: 16px; color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; }
+    .guide-meta span { display: flex; align-items: center; gap: 5px; }
+
+    .guide-layout { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 240px; gap: 2.5rem; align-items: start; }
+    .guide-content { min-width: 0; }
+    .guide-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e8eaf0; }
+    .guide-content h2:first-child { margin-top: 0; }
+    .guide-content h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; color: #4c1d95; margin: 1.5rem 0 0.5rem; }
+    .guide-content p { font-size: 15px; color: #374151; margin-bottom: 1rem; }
+
+    .step { background: #fff; border: 1px solid #e8eaf0; border-radius: 16px; padding: 1.4rem 1.5rem; margin-bottom: 1.25rem; display: flex; gap: 1.1rem; align-items: flex-start; }
+    .step-num { min-width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #a259f7); color: #fff; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { flex: 1; min-width: 0; }
+    .step-body h3 { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.4rem; }
+    .step-body p { font-size: 14px; color: #4b5563; margin: 0 0 0.5rem; line-height: 1.6; }
+    .step-body p:last-child { margin-bottom: 0; }
+
+    .tip     { background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #3b0764; line-height: 1.6; }
+    .warning { background: #fff7ed; border-left: 4px solid #f7a525; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #7c3a00; line-height: 1.6; }
+    .danger  { background: #fff1f2; border-left: 4px solid #e11d48; border-radius: 12px; padding: 1rem 1.1rem; margin: 1rem 0; display: flex; gap: 10px; font-size: 14px; color: #881337; line-height: 1.6; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .compare-card { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 1rem 1.2rem; }
+    .compare-card h4 { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 0.5rem; }
+    .compare-card p { font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 13px; }
+    .data-table th { background: #f5f3ff; color: #4c1d95; font-weight: 700; padding: 8px 12px; text-align: left; border-bottom: 2px solid #ede9fe; }
+    .data-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #374151; vertical-align: top; }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .checklist { list-style: none; margin: 0.75rem 0 1rem; }
+    .checklist li { font-size: 14px; color: #374151; padding: 6px 0; display: flex; align-items: flex-start; gap: 9px; border-bottom: 1px dashed #e8eaf0; line-height: 1.5; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-circle { width: 20px; height: 20px; border-radius: 50%; background: #ede9fe; color: #7c3aed; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 800; margin-top: 2px; }
+
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .dos, .donts { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 1rem 1.2rem; }
+    .dos h4 { color: #1a7a42; font-size: 13px; font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 0.6rem; }
+    .donts h4 { color: #b91c1c; font-size: 13px; font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 0.6rem; }
+    .dos li, .donts li { font-size: 13px; color: #374151; margin-bottom: 6px; line-height: 1.5; }
+
+    .guide-sidebar { position: sticky; top: 78px; }
+    .sidebar-card { background: #fff; border: 1px solid #e8eaf0; border-radius: 16px; padding: 1.25rem; margin-bottom: 1rem; }
+    .sidebar-card h4 { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 6px; }
+    .toc-list a { font-size: 13px; color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color 0.15s; }
+    .toc-list a:hover { color: #7c3aed; }
+    .toc-dot { width: 6px; height: 6px; border-radius: 50%; background: #e8eaf0; flex-shrink: 0; }
+    .resource-link { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #7c3aed; text-decoration: none; padding: 6px 0; border-bottom: 1px solid #f0f0f0; transition: color 0.15s; }
+    .resource-link:last-child { border-bottom: none; }
+    .resource-link:hover { color: #4c1d95; }
+    .diff-bar { display: flex; gap: 5px; margin-top: 6px; }
+    .diff-dot { width: 28px; height: 8px; border-radius: 50px; }
+    .diff-filled { background: #7c3aed; }
+    .diff-empty  { background: #e8eaf0; }
+
+    footer { text-align: center; padding: 2rem; font-size: 13px; color: #9ca3af; border-top: 1px solid #e8eaf0; background: #fff; }
+    footer a { color: #4f8ef7; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 680px) {
+      .guide-layout { grid-template-columns: 1fr; padding: 1.5rem 1rem 3rem; }
+      .guide-sidebar { position: static; }
+      .guide-hero { padding: 2rem 1rem 2.5rem; }
+      .compare-grid, .dos-donts { grid-template-columns: 1fr; }
+    }
+  
+    /* ── additions for code + diagrams ── */
+    .guide-content code { background:#f5f3ff; color:#7c3aed; padding:2px 7px; border-radius:5px; font-size:13px; overflow-wrap:anywhere; }
+    pre.code { background:#1e1b2e; color:#e9e5ff; border-radius:12px; padding:1rem 1.1rem; margin:0.75rem 0 1rem; overflow-x:auto; font-size:12.5px; line-height:1.6; }
+    pre.code code { background:none; color:inherit; padding:0; font-size:inherit; }
+    .code-label { font-size:12px; font-weight:800; color:#6b7280; margin:0.75rem 0 -0.4rem; font-family:'Poppins',sans-serif; }
+    .diagram { background:#fff; border:1px solid #e8eaf0; border-radius:16px; padding:1rem; margin:0.75rem 0 1.25rem; }
+    .diagram svg { width:100%; height:auto; display:block; }
+    .diagram figcaption { font-size:12.5px; color:#6b7280; text-align:center; margin-top:0.5rem; }
+    .pattern-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 0 1.5rem; }
+    .pattern-meta div { background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:0.8rem 1rem; font-size:13px; color:#4b5563; line-height:1.5; }
+    .pattern-meta strong { display:block; font-family:'Poppins',sans-serif; font-size:12px; color:#4c1d95; margin-bottom:2px; }
+    .data-table-wrap { overflow-x:auto; }
+    .data-table code { overflow-wrap:normal; white-space:nowrap; }
+    .checklist li > span.li-text { flex:1; min-width:0; }
+    @media (max-width: 680px) { .pattern-meta { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">🚀 Tony's AI &amp; Cloud Hub</a>
+      <a href="index.html#guides" class="nav-back">← Back to guides</a>
+    </div>
+  </header>
+
+  <section class="guide-hero">
+    <div class="guide-hero-inner">
+      <div class="guide-badge">🛠️ Hands-on Guide</div>
+      <h1>Build a Swarm with Claude Code Subagents</h1>
+      <div class="guide-meta">
+        <span>⏱️ 45–60 min</span>
+        <span>🟡 Intermediate</span>
+        <span>💻 Needs Claude Code</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-layout">
+    <article class="guide-content">
+
+      <p>In this hands-on guide you'll build a small swarm of AI agents that help maintain <em>this website</em>. You'll create four specialist <strong>subagents</strong> in Claude Code (a link checker, a researcher, a writer and a reviewer), then run them together to find, add and check new content.</p>
+
+      <div class="tip">
+        <span>💡</span>
+        <span><strong>New to the ideas?</strong> <a href="guide-multi-agent-swarms.html">Multi-Agent Systems &amp; Swarms Explained</a> covers the patterns you'll use here. This guide combines two of them: <em>orchestrator–worker</em> (agents working in parallel) and a <em>pipeline</em> (write, then review).</span>
+      </div>
+
+      <h2 id="build">What You'll Build</h2>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Agent</th><th>Job</th><th>Tools</th><th>Can edit?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>link-checker</strong></td><td>Finds broken links across the site</td><td>Read, search, fetch web pages</td><td>No</td></tr>
+          <tr><td><strong>resource-researcher</strong></td><td>Finds new free learning resources</td><td>Web search, fetch, Read</td><td>No</td></tr>
+          <tr><td><strong>card-writer</strong></td><td>Adds the chosen resource to <code>data.json</code></td><td>Read, Edit</td><td>Only data.json</td></tr>
+          <tr><td><strong>hub-reviewer</strong></td><td>Checks the change against <code>CLAUDE.md</code></td><td>Read, search, terminal (for <code>git diff</code>)</td><td>No, by instruction*</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Notice that only one agent is meant to change anything. That's deliberate: it's the principle of least privilege applied to a swarm.</p>
+      <p style="font-size:13px;color:#6b7280;">* The reviewer needs terminal access to run <code>git diff</code>. A terminal could change files, so its instructions forbid edits, and Claude Code still asks your permission before running commands.</p>
+
+      <h2 id="before">Before You Start</h2>
+      <ul class="checklist">
+        <li><span class="check-circle">1</span><span class="li-text">Claude Code installed (see <a href="guide-claude-code.html">Getting Started with Claude Code</a>)</span></li>
+        <li><span class="check-circle">2</span><span class="li-text">A copy of this site's repo on your computer: <code>git clone https://github.com/tony37uk/ai-training-hub.git</code></span></li>
+        <li><span class="check-circle">3</span><span class="li-text">A terminal open in the <code>ai-training-hub</code> folder</span></li>
+      </ul>
+
+      <h2 id="how">How Subagents Work</h2>
+      <p>A subagent is a helper that Claude Code can hand a task to. Each one:</p>
+      <ul class="checklist">
+        <li><span class="check-circle">→</span><span class="li-text">Is a Markdown file with a short settings block at the top (called frontmatter). The text underneath becomes its instructions.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text">Lives in <code>.claude/agents/</code> in your project (shared with anyone who uses the repo) or <code>~/.claude/agents/</code> (available in all your projects).</span></li>
+        <li><span class="check-circle">→</span><span class="li-text">Runs in its <strong>own context window</strong>. It doesn't see your conversation, and only its summary comes back, so your main session stays tidy.</span></li>
+        <li><span class="check-circle">→</span><span class="li-text">Can run in parallel with other subagents.</span></li>
+      </ul>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>name</code> <em>(required)</em></td><td>The agent's ID, in lowercase with hyphens</td></tr>
+          <tr><td><code>description</code> <em>(required)</em></td><td>When Claude should use it. Claude reads this to decide whether to delegate, and "use proactively" encourages it to</td></tr>
+          <tr><td><code>tools</code></td><td>Which tools it may use. <strong>If you leave this out it gets all of them</strong>, so always set it</td></tr>
+          <tr><td><code>model</code></td><td><code>haiku</code> (fast, cheap), <code>sonnet</code>, <code>opus</code>, or <code>inherit</code> to match your session</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="create">Create the Four Agents</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Make the agents folder</h3>
+          <p>In your terminal, inside the <code>ai-training-hub</code> folder:</p>
+          <p><code>mkdir -p .claude/agents</code> (macOS/Linux) or <code>mkdir .claude\agents</code> (Windows PowerShell)</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Add each agent file</h3>
+          <p>Create the four files below in <code>.claude/agents/</code>. Or let Claude Code do it: start <code>claude</code>, paste a file's contents and say <em>"save this as .claude/agents/link-checker.md"</em>.</p>
+        </div>
+      </div>
+
+      <p class="code-label">.claude/agents/link-checker.md</p>
+      <pre class="code"><code>---
+name: link-checker
+description: Checks every link in data.json and the guide pages and reports broken ones. Use proactively after links are added or changed.
+tools: Read, Grep, Glob, WebFetch
+model: haiku
+---
+
+You check links on the AI Training Hub. You never edit files.
+
+1. Collect every &quot;url&quot; and &quot;subPageUrl&quot; value from data.json, and every
+   href in the guide-*.html and resources-*.html pages.
+2. For local links (e.g. guide-openclaw.html), check the file exists.
+3. For web links, fetch each one and note any that fail, redirect to an
+   error page, or no longer match the card&#x27;s description.
+
+Reply with a short table: link, where it appears, status (OK / broken /
+check manually), and a one-line reason for anything not OK.</code></pre>
+      <p class="code-label">.claude/agents/resource-researcher.md</p>
+      <pre class="code"><code>---
+name: resource-researcher
+description: Finds new, free, high-quality learning resources for the AI Training Hub on a given topic. Use when asked to suggest or find new content.
+tools: WebSearch, WebFetch, Read
+model: sonnet
+---
+
+You find learning resources for an AI training site aimed at IT
+professionals. You never edit files.
+
+- Read data.json first so you don&#x27;t suggest anything already listed.
+- Prefer official sources (vendor docs, course providers, the original
+  author) over blogs that summarise them.
+- Only suggest https links, free or free-to-audit content, and pages you
+  have actually opened and checked.
+
+Return up to 3 candidates, each with: title, url, who publishes it,
+whether it&#x27;s free, and a one-sentence description written for a beginner.</code></pre>
+      <p class="code-label">.claude/agents/card-writer.md</p>
+      <pre class="code"><code>---
+name: card-writer
+description: Adds new resource cards to data.json in the hub&#x27;s existing format. Use when a resource has been chosen and needs adding to the site.
+tools: Read, Edit
+model: sonnet
+---
+
+You add cards to data.json for the AI Training Hub. Only ever edit
+data.json.
+
+- Put the card in the right section (links, guides, videos).
+- Copy the exact shape of the existing cards in that section: tag,
+  tagClass, title, description, url, linkLabel (and thumb/thumbBg for
+  videos).
+- Keep descriptions to one plain-English sentence, and include the words
+  people would filter by (for example &quot;agents&quot; or &quot;Claude&quot;).
+- Keep the file valid JSON.
+
+Finish by listing exactly what you added.</code></pre>
+      <p class="code-label">.claude/agents/hub-reviewer.md</p>
+      <pre class="code"><code>---
+name: hub-reviewer
+description: Reviews changes to the AI Training Hub against CLAUDE.md and the README before they are committed. Use after any change to data.json or the HTML pages.
+tools: Read, Grep, Glob, Bash
+model: sonnet
+---
+
+You review changes before they are committed. You never edit files.
+
+1. Run `git diff` to see what changed.
+2. Check data.json is valid JSON and new cards match the existing format.
+3. Check every rule in CLAUDE.md: https links only, new-tab links have
+   rel=&quot;noopener noreferrer&quot;, no secrets or email addresses, user content
+   escaped.
+4. Check new descriptions are clear, accurate and free of typos.
+
+Reply with PASS or CHANGES NEEDED, followed by a numbered list of any
+problems and how to fix each one.</code></pre>
+
+      <div class="tip">
+        <span>✍️</span>
+        <span><strong>Make them your own.</strong> These are starting points. Change the instructions to suit how you want the hub to look and sound. The more specific the instructions, the better each agent performs.</span>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Restart Claude Code</h3>
+          <p>Claude Code picks up changes to agent files within seconds, but a brand-new <code>agents</code> folder needs a restart. Exit with <code>/exit</code> and run <code>claude</code> again.</p>
+        </div>
+      </div>
+
+      <h2 id="run">Run Your Swarm</h2>
+      <p>You can call one agent by name, or @-mention it to guarantee it runs:</p>
+      <pre class="code"><code>Use the link-checker subagent to check every link on the site.</code></pre>
+      <pre class="code"><code>@&quot;link-checker (agent)&quot; check the links in data.json</code></pre>
+      <p>Now run the whole team. Paste this into Claude Code, and it acts as the <strong>orchestrator</strong>:</p>
+      <pre class="code"><code>I want to add new multi-agent learning resources to the hub.
+
+1. In parallel:
+   - use the link-checker subagent to check all existing links
+   - use the resource-researcher subagent to find 3 free resources
+     about multi-agent systems
+2. Show me the researcher&#x27;s candidates and the broken-link report, then
+   wait for me to pick a resource.
+3. Use the card-writer subagent to add the one I pick to data.json.
+4. Use the hub-reviewer subagent to review the change and fix anything it
+   flags. Don&#x27;t commit until I say so.</code></pre>
+      <p>Watch what happens: the link checker and researcher work <strong>at the same time</strong>, each in its own context. Then the writer and reviewer run <strong>one after the other</strong>. Your main session only receives their summaries.</p>
+      <div class="warning">
+        <span>⚠️</span>
+        <span><strong>Stay in the loop.</strong> Step 2 of the prompt makes Claude stop and ask you before anything is changed. Keep checkpoints like this until you trust your agents.</span>
+      </div>
+
+      <h2 id="ship">Check and Publish the Result</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Look at the site</h3>
+          <p>Run <code>python3 -m http.server 8000</code> and open <code>http://localhost:8000</code>. Check the new card appears and its link works.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Commit the agents and the change</h3>
+          <p>Ask Claude Code to <em>"commit the new agents and the data.json change, then push"</em>. Committing <code>.claude/agents/</code> means the agents travel with the repo, ready for next time.</p>
+        </div>
+      </div>
+
+      <h2 id="teams">Going Further: Agent Teams</h2>
+      <p>Subagents report back to your session but don't work together as a team. Claude Code also has an experimental <strong>agent teams</strong> feature, where several Claude Code sessions share a task list and message each other directly, so they can challenge each other's findings.</p>
+      <div class="compare-grid">
+        <div class="compare-card" style="border-color:#ede9fe;">
+          <h4 style="color:#7c3aed;">Subagents</h4>
+          <p>Report results back to your main session. Lower cost. Best for focused jobs where only the result matters.</p>
+        </div>
+        <div class="compare-card" style="border-color:#ddeeff;">
+          <h4 style="color:#1a5fa8;">Agent teams</h4>
+          <p>Teammates talk to each other and share a task list. Much higher token cost. Best for reviews, research and debate.</p>
+        </div>
+      </div>
+      <p>Agent teams are off by default. To try them, add this to your Claude Code <code>settings.json</code>:</p>
+      <p class="code-label">settings.json</p>
+      <pre class="code"><code>{
+  &quot;env&quot;: {
+    &quot;CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS&quot;: &quot;1&quot;
+  }
+}</code></pre>
+      <p>Then describe the team you want. Your subagent files can be reused as teammates:</p>
+      <pre class="code"><code>Spawn three teammates to review the hub&#x27;s How-To Guides section:
+- one using the hub-reviewer agent type, checking accuracy and the CLAUDE.md rules
+- one checking the guides read well for a complete beginner
+- one looking for gaps: topics an IT professional would expect but can&#x27;t find
+Have them share and challenge each other&#x27;s findings, then give me one
+prioritised list of improvements. Don&#x27;t change any files.</code></pre>
+      <div class="tip">
+        <span>💡</span>
+        <span>Anthropic suggests starting with <strong>3–5 teammates</strong> and with research or review tasks that don't involve writing code, so you see the benefit without teammates editing the same files.</span>
+      </div>
+
+      <h2 id="trouble">Troubleshooting</h2>
+      <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>Claude doesn't seem to know about an agent</td><td>Restart Claude Code. Check the file is in <code>.claude/agents/</code>, ends in <code>.md</code> and has <code>name</code> and <code>description</code> lines.</td></tr>
+          <tr><td>Claude does the work itself instead of delegating</td><td>Name the agent in your prompt, or @-mention it. Make its <code>description</code> say clearly when to use it.</td></tr>
+          <tr><td>An agent changed something it shouldn't</td><td>Tighten its <code>tools</code> line. Read-only agents should only have Read, Grep, Glob and web tools.</td></tr>
+          <tr><td>It's using a lot of your usage allowance</td><td>Use <code>model: haiku</code> for simple jobs like link checking, and run fewer agents at once.</td></tr>
+          <tr><td>Asked for a team but got subagents</td><td>Check agent teams are enabled, then ask again and explicitly request an agent team.</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="dosdonts">Quick Reference: Do's and Don'ts</h2>
+      <div class="dos-donts">
+        <div class="dos">
+          <h4>✅ Do this</h4>
+          <ul>
+            <li>Always set a <code>tools</code> list</li>
+            <li>Give one agent the right to edit, others read-only</li>
+            <li>Write descriptions that say when to use the agent</li>
+            <li>Add a "wait for me" step before changes</li>
+            <li>Commit <code>.claude/agents/</code> to the repo</li>
+          </ul>
+        </div>
+        <div class="donts">
+          <h4>❌ Avoid this</h4>
+          <ul>
+            <li>Leaving out <code>tools</code> (the agent gets everything)</li>
+            <li>Agents with overlapping jobs</li>
+            <li>Putting passwords or keys in agent files</li>
+            <li>Letting agents commit or push unreviewed work</li>
+            <li>Agent teams for small, routine tasks</li>
+          </ul>
+        </div>
+      </div>
+
+    </article>
+
+    <aside class="guide-sidebar">
+      <div class="sidebar-card">
+        <h4>Contents</h4>
+        <ul class="toc-list">
+          <li><a href="#build"><span class="toc-dot"></span>What you'll build</a></li>
+          <li><a href="#before"><span class="toc-dot"></span>Before you start</a></li>
+          <li><a href="#how"><span class="toc-dot"></span>How subagents work</a></li>
+          <li><a href="#create"><span class="toc-dot"></span>Create the four agents</a></li>
+          <li><a href="#run"><span class="toc-dot"></span>Run your swarm</a></li>
+          <li><a href="#ship"><span class="toc-dot"></span>Check and publish</a></li>
+          <li><a href="#teams"><span class="toc-dot"></span>Going further: agent teams</a></li>
+          <li><a href="#trouble"><span class="toc-dot"></span>Troubleshooting</a></li>
+          <li><a href="#dosdonts"><span class="toc-dot"></span>Do's and don'ts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Difficulty</h4>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Intermediate</p>
+        <div class="diff-bar">
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-filled"></div>
+          <div class="diff-dot diff-empty"></div>
+          <div class="diff-dot diff-empty"></div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Useful Links</h4>
+        <a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener noreferrer" class="resource-link">📄 Claude Code subagents docs</a>
+        <a href="https://code.claude.com/docs/en/agent-teams" target="_blank" rel="noopener noreferrer" class="resource-link">🤝 Claude Code agent teams docs</a>
+        <a href="guide-multi-agent-swarms.html" class="resource-link">🐝 Swarms explained</a>
+        <a href="guide-agent-frameworks.html" class="resource-link">🧭 Choosing a framework</a>
+      </div>
+
+      <div class="sidebar-card" style="background:linear-gradient(135deg,#f5f3ff,#fdf4ff);border-color:#ddd6fe;">
+        <h4 style="color:#4c1d95;">Next step</h4>
+        <p style="font-size:13px;color:#374151;line-height:1.6;">Ready to build outside Claude Code? See <a href="guide-agent-frameworks.html" style="color:#7c3aed;font-weight:700;">Choosing an Agent Framework</a>.</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Part of <a href="index.html">Tony's AI &amp; Cloud Training Hub</a> &mdash; built with ❤️ and Claude</p>
+  </footer>
+</body>
+</html>
